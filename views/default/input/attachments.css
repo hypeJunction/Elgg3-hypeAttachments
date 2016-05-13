@@ -1,0 +1,29 @@
+.attachments-show .attachments-fieldset {
+	display: block !important;
+}
+.attachments-show .attachments-toggler {
+	display: none !important;
+}
+.attachments-toggler {
+	float: left;
+}
+.attachments-fieldset .elgg-dropzone {
+    margin-bottom: 5px;
+}
+.attachments-attached-item {
+    position: relative;
+}
+.attachments-attached-item .attachments-detach-action {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 3px;
+    background: white;
+}
+.attachments-attached-item:hover .attachments-detach-action {
+    display: block;
+}
+.attachments-list {
+	margin: 0;
+}
