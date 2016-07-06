@@ -16,7 +16,7 @@ if (elgg_view_exists('input/dropzone')) {
 	));
 } else {
 	$uploads_form = elgg_view('input/file', [
-		'name' => elgg_extract('name', $vars, 'uploads[]'),
+		'name' => elgg_extract('name', $vars, 'uploads') . '[]',
 		'multiple' => $max > 1,
 		'id' => elgg_extract('id', $vars),
 	]);
