@@ -4,9 +4,9 @@
 	"license": "GPL-2.0",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:hypeJunction/Elgg-hypeAttachments.git",
+		"url": "git@github.com:hypeJunction/hypeAttachments.git",
 		"owner": "hypeJunction",
-		"repo": "Elgg-hypeAttachments"
+		"repo": "hypeAttachments"
 	},
 	"devDependencies": {
 		"curlrequest": "^0.3.10",

@@ -16,8 +16,7 @@
 	],
 	"require": {
 		"php": ">=5.5",
-		"composer/installers": "~1.0",
-		"hypejunction/hypeapps": "*"
+		"composer/installers": "~1.0"
 	},
 	"autoload": {
 		"psr-0": {
