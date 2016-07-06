@@ -1,6 +1,6 @@
 {
 	"name": "hypejunction/hypeAttachments",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "elgg-plugin",
 	"description": "File attachments for Elgg",
 	"homepage": "http://hypejunction.com",
