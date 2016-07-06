@@ -1,28 +1,30 @@
 <?php
-
 /**
  * Displays a gallery of attachments
  * @uses $vars['entity']
+ * @uses $vars['list_options']
  */
-
-$size = elgg_extract('size', $vars, 'medium');
-
 $entity = elgg_extract('entity', $vars);
 /* @var \ElggEntity $entity */
 
 $count = hypeapps_has_attachments($entity);
 if (!$count) {
-	return true;
+	return;
 }
 
 $attachments = hypeapps_get_attachments($entity, ['limit' => 0]);
-echo elgg_view_entity_list($attachments, [
-	'list_type' => 'gallery',
-	'gallery_class' => 'attachments-list elgg-gallery-fluid',
-	'item_class' => 'mas elgg-photo',
-	'item_view' => 'object/format/attachment',
-	'subject' => $entity,
+
+$options = [
 	'limit' => 0,
 	'pagination' => false,
-	'size' => $size,
-]);
+	'size' => elgg_extract('size', $vars, 'medium'),
+	'no_results' => elgg_echo('attachments:no_results'),
+	'full_view' => false,
+];
+
+$list_options = (array) elgg_extract('list_options', $vars, []);
+
+echo elgg_view_entity_list($attachments, array_merge($options, $list_options));
+?>
+
+<script>require(['output/attachments']);</script>
