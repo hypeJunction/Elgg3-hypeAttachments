@@ -2,6 +2,7 @@
 
 return [
 	'attachments:upload' => 'Upload a file',
+	'attachments:detach' => 'Detach',
 	'attachments:detach:success' => 'Attachment was successfully removed',
 	'attachments:detach:error' => 'Attachment could not be removed',
 

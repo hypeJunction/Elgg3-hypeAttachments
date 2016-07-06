@@ -56,7 +56,7 @@ function hypeappas_attachments_setup_entity_menu($hook, $type, $return, $params)
 		$title = elgg_echo('delete');
 	} else {
 		$delete = false;
-		$title = elgg_echo('interactions:detach');
+		$title = elgg_echo('attachments:detach');
 	}
 	
 	$return[] = ElggMenuItem::factory([

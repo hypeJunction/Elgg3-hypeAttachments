@@ -23,7 +23,7 @@ if ($subject && $subject->canEdit()) {
 		$title = elgg_echo('delete');
 	} else {
 		$delete = false;
-		$title = elgg_echo('interactions:detach');
+		$title = elgg_echo('attachments:detach');
 	}
 	
 	$output .= elgg_view('output/url', array(
