@@ -7,6 +7,10 @@
 $entity = elgg_extract('entity', $vars);
 /* @var \ElggEntity $entity */
 
+if (!$entity instanceof ElggEntity) {
+	return;
+}
+
 $count = hypeapps_has_attachments($entity);
 if (!$count) {
 	return;
