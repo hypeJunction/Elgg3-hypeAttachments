@@ -1,0 +1,29 @@
+language: php
+php:
+ - 5.5
+ - 5.6
+
+branches:
+  - master
+
+matrix:
+  include:
+    - php: 5.6
+      env: VARIA=true
+      install:
+       - composer self-update
+       - composer global require "fxp/composer-asset-plugin:~1.1.1"
+       - composer install --prefer-source
+       - composer require "elgg/elgg:~2.0"
+       - composer require "elgg/sniffs:*"
+       - composer require "squizlabs/php_codesniffer:~1.5"
+      script:
+       - phpcs --standard=../elgg-coding-standards/elgg.xml --warning-severity=0 --ignore=*../Elgg/mod/hypeGallery/tests/*,*./Elgg/mod/hypeGallery/vendors/* ../Elgg/mod/hypeGallery/
+       - phpunit --coverage-clover=coverage.clover
+       - php composer.phar validate --verbose ../Elgg/mod/hypeGallery/composer.json
+
+script:
+ - ./vendor/bin/phpunit
+
+notifications:
+  email: false

@@ -1,5 +1,5 @@
 {
-	"name": "hypejunction/hypeAttachments",
+	"name": "hypejunction/hypeattachments",
 	"version": "1.0.2",
 	"type": "elgg-plugin",
 	"description": "File attachments for Elgg",
@@ -21,6 +21,11 @@
 	"autoload": {
 		"psr-0": {
 			"": "classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-0": {
+			"": "tests/phpunit/classes/"
 		}
 	}
 }
