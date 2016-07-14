@@ -6,6 +6,7 @@ filter:
         - '*/vendor/*'
 before_commands:
         - git clone https://github.com/Elgg/elgg-coding-standards.git ../elgg-coding-standards/
+        - composer travis:install
 tools:
     js_hint:
         filter:
