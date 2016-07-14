@@ -8,7 +8,11 @@ $attachment = get_entity($attachment_guid);
 
 $delete = get_input('delete', false);
 
-if ($entity && $entity->canEdit() && $attachment && hypeapps_detach($entity, $attachment, $delete)) {
+if ($entity 
+		&& $entity->canEdit()
+		&& $attachment
+		&& hypeapps_detach($entity, $attachment, $delete)
+	) {
 	system_message(elgg_echo('attachments:detach:success'));
 } else {
 	register_error(elgg_echo('attachments:detach:error'));

@@ -2,10 +2,12 @@
 
 namespace hypeJunction;
 
+use ElggEntity;
 use ElggFile;
 
 /**
  * Attachment Service
+ * 
  * @access private
  */
 class AttachmentService {
@@ -80,8 +82,8 @@ class AttachmentService {
 		$file->icontime = time();
 
 		$filestorename = pathinfo($file->getFilenameOnFilestore(), PATHINFO_BASENAME);
-
-		$thumbnail = get_resized_image_from_existing_file($file->getFilenameOnFilestore(), 60, 60, true);
+		$filenameonstore = $file->getFilenameOnFilestore();
+		$thumbnail = get_resized_image_from_existing_file($filenameonstore, 60, 60, true);
 		if ($thumbnail) {
 			$thumb = new ElggFile();
 			$thumb->setFilename("file/thumb$filestorename");
@@ -92,7 +94,7 @@ class AttachmentService {
 			unset($thumbnail);
 		}
 
-		$thumbsmall = get_resized_image_from_existing_file($file->getFilenameOnFilestore(), 153, 153, true);
+		$thumbsmall = get_resized_image_from_existing_file($filenameonstore, 153, 153, true);
 		if ($thumbsmall) {
 			$thumb->setFilename("file/smallthumb$filestorename");
 			$thumb->open("write");
@@ -102,7 +104,7 @@ class AttachmentService {
 			unset($thumbsmall);
 		}
 
-		$thumblarge = get_resized_image_from_existing_file($file->getFilenameOnFilestore(), 600, 600, false);
+		$thumblarge = get_resized_image_from_existing_file($filenameonstore, 600, 600, false);
 		if ($thumblarge) {
 			$thumb->setFilename("file/largethumb$filestorename");
 			$thumb->open("write");
@@ -116,13 +118,13 @@ class AttachmentService {
 	/**
 	 * Attach uploaded files for an entity
 	 *
-	 * @param \ElggEntity $entity     Entity to which the files are attached
-	 * @param string      $input_name Form input name
-	 * @param array       $attributes Metadata and attributes to set on each uploaded file
-	 *                                This can include container_guid, origin etc
+	 * @param ElggEntity $entity     Entity to which the files are attached
+	 * @param string     $input_name Form input name
+	 * @param array      $attributes Metadata and attributes to set on each uploaded file
+	 *                               This can include container_guid, origin etc
 	 * @return ElggFile[] GUIDs of attached file entities
 	 */
-	public function attachUploadedFiles(\ElggEntity $entity, $input_name, array $attributes = []) {
+	public function attachUploadedFiles(ElggEntity $entity, $input_name, array $attributes = []) {
 
 		$upload_guids = (array) get_input($input_name, []);
 
@@ -158,23 +160,23 @@ class AttachmentService {
 	/**
 	 * Attach attachments to an entity
 	 *
-	 * @param \ElggEntity $entity     Subject entity
+	 * @param ElggEntity $entity     Subject entity
 	 * @param ElggFile   $attachment Attachment entity
 	 * @return bool
 	 */
-	public function attach(\ElggEntity $entity, \ElggEntity $attachment) {
+	public function attach(ElggEntity $entity, ElggEntity $attachment) {
 		return $entity->addRelationship($attachment->guid, 'attached');
 	}
 
 	/**
 	 * Detach attachments from entity
 	 *
-	 * @param \ElggEntity $entity     Subject entity
+	 * @param ElggEntity $entity     Subject entity
 	 * @param ElggFile   $attachment Attached entity
-	 * @param bool        $delete     Also delete attached entities
+	 * @param bool       $delete     Also delete attached entities
 	 * @return bool
 	 */
-	public function detach(\ElggEntity $entity, \ElggEntity $attachment, $delete = false) {
+	public function detach(ElggEntity $entity, ElggEntity $attachment, $delete = false) {
 		if ($delete) {
 			// This will check delete permissions
 			return $attachment->delete();
@@ -186,11 +188,11 @@ class AttachmentService {
 	/**
 	 * Returns an array of attached entities
 	 *
-	 * @param \ElggEntity $entity  Subject entity
-	 * @param array       $options Additional options
-	 * @return \ElggEntity[]|false
+	 * @param ElggEntity $entity  Subject entity
+	 * @param array      $options Additional options
+	 * @return ElggEntity[]|false
 	 */
-	public function getAttachments(\ElggEntity $entity, array $options = array()) {
+	public function getAttachments(ElggEntity $entity, array $options = array()) {
 		$options = $this->getAttachmentsFilterOptions($entity, $options);
 		$attachments = elgg_get_entities_from_relationship($options);
 		if ($attachments) {
@@ -205,11 +207,11 @@ class AttachmentService {
 	 * Check if entity has attachments
 	 * Returns a count of attachments
 	 *
-	 * @param \ElggEntity $entity  Subject entity
-	 * @param array       $options Additional options
+	 * @param ElggEntity $entity  Subject entity
+	 * @param array      $options Additional options
 	 * @return int
 	 */
-	public function hasAttachments(\ElggEntity $entity, array $options = array()) {
+	public function hasAttachments(ElggEntity $entity, array $options = array()) {
 		$options['count'] = true;
 		return $this->getAttachments($entity, $options);
 	}
@@ -217,11 +219,11 @@ class AttachmentService {
 	/**
 	 * Returns getter options for comment attachments
 	 *
-	 * @param \ElggEntity $entity  Subject entity
-	 * @param array       $options Additional options
+	 * @param ElggEntity $entity  Subject entity
+	 * @param array      $options Additional options
 	 * @return array
 	 */
-	protected function getAttachmentsFilterOptions(\ElggEntity $entity, array $options = array()) {
+	protected function getAttachmentsFilterOptions(ElggEntity $entity, array $options = array()) {
 		$defaults = array(
 			'relationship' => 'attached',
 			'relationship_guid' => (int) $entity->guid,

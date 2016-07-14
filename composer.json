@@ -45,7 +45,7 @@
 			"composer install --prefer-source --optimize-autoloader"
 		],
 		"lint": [
-            "phpcs --standard=vendor/elgg/sniffs/elgg.xml -p --warning-severity=1 --ignore=*/tests/*,*/vendor/*,*/vendors/*,*/mod/* classes actions languages start.php",
+            "phpcs --standard=vendor/elgg/sniffs/elgg.xml -p --warning-severity=0 --ignore=*/tests/*,*/vendor/*,*/vendors/*,*/mod/* classes actions languages start.php",
             "composer validate --verbose"
         ],
         "test": [
