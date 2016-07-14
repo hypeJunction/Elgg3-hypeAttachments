@@ -23,10 +23,34 @@
 			"": "classes/"
 		}
 	},
+	"minimum-stability": "dev",
+	"prefeer-stable": true,
+	"require-dev": {
+		"elgg/elgg": "~2.1",
+		"phpunit/phpunit": "~4.1",
+		"elgg/sniffs": "dev-master",
+		"squizlabs/php_codesniffer": "~1.5",
+		"simpletest/simpletest": "~1.1",
+		"phpdocumentor/reflection-docblock": "~2.0"
+	},
 	"autoload-dev": {
 		"psr-0": {
 			"": "tests/phpunit/classes/"
 		}
+	},
+	"scripts": {
+		"lint": [
+            "phpcs --standard=./vendor/elgg/sniffs/elgg.xml --warning-severity=0 --ignore=*/tests/*,*/upgrades/*,*/deprecated* ./",
+            "composer validate --verbose"
+        ],
+        "test": [
+			"./vendor/bin/phpunit --coverage-clover=coverage.clover"
+		],
+		"travis:install": [
+			"composer self-update",
+			"composer global require \"fxp/composer-asset-plugin:~1.1.1\"",
+			"composer install --prefer-source"
+		]
 	}
 }
 

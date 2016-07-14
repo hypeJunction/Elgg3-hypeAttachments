@@ -3,22 +3,12 @@ php:
  - 5.5
  - 5.6
 
-branches:
-  - master
-
 install:
- - composer self-update
- - composer global require "fxp/composer-asset-plugin:~1.1.1"
- - composer install --prefer-source
- - composer require "phpunit/phpunit:~4.1"
- - composer require "elgg/sniffs:*"
- - composer require "squizlabs/php_codesniffer:~1.5"
- - composer require "elgg/elgg:~2.0"
+ - composer travis:install
 
 script:
- - phpcs --standard=../elgg-coding-standards/elgg.xml --warning-severity=0 --ignore=*./tests/*,*./vendors/*
- - ./vendor/bin/phpunit --coverage-clover=coverage.clover
- - php composer.phar validate --verbose ./composer.json
+ - composer lint
+ - composer test
 
 notifications:
   email: false
