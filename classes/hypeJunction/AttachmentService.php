@@ -248,7 +248,7 @@ class AttachmentService {
 	 * It's safe to pass an already converted array, in which case this method
 	 * just returns the original array unmodified.
 	 *
-	 * @param array $data
+	 * @param array $data An array of file details
 	 *
 	 * @return array
 	 */
