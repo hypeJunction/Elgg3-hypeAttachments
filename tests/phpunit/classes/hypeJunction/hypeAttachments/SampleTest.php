@@ -5,7 +5,7 @@ namespace hypeJunction\hypeAttachments;
 class SampleTest extends \PHPUnit_Framework_TestCase {
 
 	function testCanTest() {
-		$this->asserTrue(true);
+		$this->assertInstanceOf(\Elgg\Di\ServiceProvider::class, _elgg_services());
 	}
 
 }

@@ -11,3 +11,5 @@ robots.txt
 /vendor/
 composer.lock
 Gemfile.lock
+/tests/tmp/
+coverage.clover

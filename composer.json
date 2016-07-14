@@ -1,6 +1,5 @@
 {
 	"name": "hypejunction/hypeattachments",
-	"version": "1.0.2",
 	"type": "elgg-plugin",
 	"description": "File attachments for Elgg",
 	"homepage": "http://hypejunction.com",
@@ -20,11 +19,11 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"": "classes/"
+			"hypeJunction/": "classes/hypeJunction/"
 		}
 	},
 	"minimum-stability": "dev",
-	"prefeer-stable": true,
+	"prefer-stable": true,
 	"require-dev": {
 		"elgg/elgg": "~2.1",
 		"phpunit/phpunit": "~4.1",
@@ -35,21 +34,26 @@
 	},
 	"autoload-dev": {
 		"psr-0": {
-			"": "tests/phpunit/classes/"
+			"hypeJunction": "tests/phpunit/classes/hypeJunction/"
 		}
 	},
 	"scripts": {
+		"travis:install": [
+			"phpenv rehash",
+			"composer self-update",
+			"composer global require \"fxp/composer-asset-plugin:~1.1.1\"",
+			"composer install --prefer-source --optimize-autoloader"
+		],
 		"lint": [
-            "phpcs --standard=./vendor/elgg/sniffs/elgg.xml --warning-severity=0 --ignore=*/tests/*,*/upgrades/*,*/deprecated* ./",
+            "phpcs --standard=vendor/elgg/sniffs/elgg.xml -p --warning-severity=1 --ignore=*/tests/*,*/vendor/*,*/vendors/*,*/mod/* classes actions languages start.php",
             "composer validate --verbose"
         ],
         "test": [
-			"./vendor/bin/phpunit --coverage-clover=coverage.clover"
+			"phpunit --coverage-clover=coverage.clover"
 		],
-		"travis:install": [
-			"composer self-update",
-			"composer global require \"fxp/composer-asset-plugin:~1.1.1\"",
-			"composer install --prefer-source"
+		"clover": [
+			"wget https://scrutinizer-ci.com/ocular.phar",
+			"php ocular.phar code-coverage:upload --format=php-clover coverage.clover"
 		]
 	}
 }
