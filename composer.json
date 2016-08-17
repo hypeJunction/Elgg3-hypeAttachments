@@ -23,6 +23,9 @@
 			"hypeJunction/": "classes/hypeJunction/"
 		}
 	},
+	"extra": {
+		"installer-name": "hypeDropzone"
+	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require-dev": {
