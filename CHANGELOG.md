@@ -1,3 +1,27 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/hypeJunction/hypeAttachments/compare/1.0.2...v2.0.0) (2016-08-17)
+
+
+### Bug Fixes
+
+* **cs:** fix coding style ([3626487](https://github.com/hypeJunction/hypeAttachments/commit/3626487))
+* **cs:** fix coding style ([f93256c](https://github.com/hypeJunction/hypeAttachments/commit/f93256c))
+
+### Features
+
+* **core:** upgrade to Elgg 2.2, add UI ([bbad331](https://github.com/hypeJunction/hypeAttachments/commit/bbad331))
+
+
+### BREAKING CHANGES
+
+* core: Now requires Elgg 2.2
+Modifies handlers to use classes - if you were unregistering handlers, update
+your code.
+Adds UI for configuring settings and magically adding UI elements to configured
+entity types
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/hypeJunction/hypeAttachments/compare/1.0.1...v1.0.2) (2016-07-06)
 
