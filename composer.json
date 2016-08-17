@@ -24,7 +24,7 @@
 		}
 	},
 	"extra": {
-		"installer-name": "hypeDropzone"
+		"installer-name": "hypeAttachments"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
