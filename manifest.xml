@@ -17,7 +17,12 @@
 		<type>elgg_release</type>
 		<version>2.2</version>
 	</requires>
-	
+
+	<requires>
+		<type>plugin</type>
+		<name>acl_builder_api</name>
+	</requires>
+
 	<suggests>
 		<type>plugin</type>
 		<name>hypeDropzone</name>
