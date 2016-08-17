@@ -15,7 +15,8 @@
 	],
 	"require": {
 		"php": ">=5.5",
-		"composer/installers": "~1.0"
+		"composer/installers": "~1.0",
+		"hypejunction/acl_builder_api": "~1.0"
 	},
 	"autoload": {
 		"psr-0": {

@@ -1,16 +1,12 @@
 Attachments for Elgg
 ====================
-![Elgg 1.9](https://img.shields.io/badge/Elgg-1.9-orange.svg?style=flat-square)
-![Elgg 1.10](https://img.shields.io/badge/Elgg-1.10-orange.svg?style=flat-square)
-![Elgg 1.11](https://img.shields.io/badge/Elgg-1.11-orange.svg?style=flat-square)
-![Elgg 1.12](https://img.shields.io/badge/Elgg-1.12-orange.svg?style=flat-square)
+![Elgg 2.2](https://img.shields.io/badge/Elgg-2.2-orange.svg?style=flat-square)
 
 ## Features
 
- * API and actions for attaching files and other entities
+ * API and UI for attaching files and other entities
  * Form input for uploading file attachments
  * Views for displaying attachments
-
 
 ## Acknowledgements
 
@@ -18,11 +14,40 @@ Attachments for Elgg
 
 ## Usage
 
+### Magic
+
+If you add your entity subtype to a list of entities supporting attachments, the plugin
+will attempt to create all of the UI, necessary to upload and display attachments:
+
+```php
+elgg_register_plugin_hook_handler('allow_attachments', 'object:my_subtype', '\Elgg\Values::getTrue');
+```
+
+Note that this generic approach might not work with all plugins, and may require additional customizations on your side.
+
 ### Display an attachment input
 
 ```php
 echo elgg_view('input/attachments');
 ```
+
+To add an attachments input to your comment and discussion replies forms, use the following code. You will not need to add any code to your save action.
+
+```php
+echo elgg_view('input/attachments', [
+	'name' => 'comment_attachments',
+		]);
+```
+
+To add an attachments input to your personal messages and replies forms, use the following code. You will not need to add any code to your save action.
+
+```php
+echo elgg_view('input/attachments', [
+		'name' => 'message_attachments',
+	]);
+```
+
+Note that if you are not using *hypeDropzone*, your form must have it's encoding set to `multipart/form-data`.
 
 ### Attach uploaded files in an action
 

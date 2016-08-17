@@ -4,6 +4,9 @@ namespace hypeJunction;
 
 use ElggEntity;
 use ElggFile;
+use hypeJunction\Attachments\Notifications;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Attachment Service
@@ -13,106 +16,15 @@ use ElggFile;
 class AttachmentService {
 
 	/**
-	 * Save uploaded files
-	 *
-	 * @param string $input_name Form input name
-	 * @return ElggFile[]
+	 * @var self
 	 */
-	public function saveUploadedFiles($input_name) {
+	static $instance;
 
-		$files = [];
-
-		$uploaded_files = $this->fixPhpFilesArray($_FILES[$input_name]);
-
-		$keys = array_keys($uploaded_files);
-		sort($keys);
-
-		if (self::$fileKeys == $keys) {
-			$uploaded_files = [$uploaded_files];
+	public function getInstance() {
+		if (!self::$instance) {
+			self::$instance = new self();
 		}
-
-		foreach ($uploaded_files as $uploaded_file) {
-			if ($uploaded_file['error'] !== UPLOAD_ERR_OK || empty($uploaded_file['name'])) {
-				continue;
-			}
-
-			$originalfilename = $uploaded_file['name'];
-			$time = time();
-
-			$file = new ElggFile();
-			$file->subtype = 'file';
-			$file->owner_guid = elgg_get_logged_in_user_guid();
-			$file->setFilename("file/{$time}{$originalfilename}");
-
-			$file->open('write');
-			$file->close();
-
-			move_uploaded_file($uploaded_file['tmp_name'], $file->getFilenameOnFilestore());
-
-			$file->originalfilename = $originalfilename;
-			$file->title = htmlspecialchars($originalfilename, ENT_QUOTES, 'UTF-8');
-			$file->access_id = ACCESS_PRIVATE;
-			$file->mimetype = $file->detectMimeType($file->getFilenameOnFilestore(), $uploaded_file['type']);
-			if (!$file->mimetype) {
-				$file->mimetype = $uploaded_file['type'];
-			}
-			$file->simpletype = file_get_simple_type($file->mimetype);
-
-			if ($file->save()) {
-				$this->saveFileIcon($file);
-			}
-
-			$files[] = $file;
-		}
-
-		return $files;
-	}
-
-	/**
-	 * Create file icons
-	 * 
-	 * @param ElggFile $file File entity
-	 * @return void
-	 */
-	function saveFileIcon(ElggFile $file) {
-		if ($file->simpletype !== 'image') {
-			return;
-		}
-
-		$file->icontime = time();
-
-		$filestorename = pathinfo($file->getFilenameOnFilestore(), PATHINFO_BASENAME);
-		$filenameonstore = $file->getFilenameOnFilestore();
-		$thumbnail = get_resized_image_from_existing_file($filenameonstore, 60, 60, true);
-		if ($thumbnail) {
-			$thumb = new ElggFile();
-			$thumb->setFilename("file/thumb$filestorename");
-			$thumb->open("write");
-			$thumb->write($thumbnail);
-			$thumb->close();
-			$file->thumbnail = "file/thumb$filestorename";
-			unset($thumbnail);
-		}
-
-		$thumbsmall = get_resized_image_from_existing_file($filenameonstore, 153, 153, true);
-		if ($thumbsmall) {
-			$thumb->setFilename("file/smallthumb$filestorename");
-			$thumb->open("write");
-			$thumb->write($thumbsmall);
-			$thumb->close();
-			$file->smallthumb = "file/smallthumb$filestorename";
-			unset($thumbsmall);
-		}
-
-		$thumblarge = get_resized_image_from_existing_file($filenameonstore, 600, 600, false);
-		if ($thumblarge) {
-			$thumb->setFilename("file/largethumb$filestorename");
-			$thumb->open("write");
-			$thumb->write($thumblarge);
-			$thumb->close();
-			$file->largethumb = "file/largethumb$filestorename";
-			unset($thumblarge);
-		}
+		return self::$instance;
 	}
 
 	/**
@@ -126,6 +38,7 @@ class AttachmentService {
 	 */
 	public function attachUploadedFiles(ElggEntity $entity, $input_name, array $attributes = []) {
 
+		// files uploaded via dropzone
 		$upload_guids = (array) get_input($input_name, []);
 
 		// files being uploaded via $_FILES
@@ -158,6 +71,117 @@ class AttachmentService {
 	}
 
 	/**
+	 * Returns an array of uploaded file objects regardless of upload status/errors
+	 *
+	 * @param string $input_name Form input name
+	 * @return UploadedFile[]
+	 */
+	protected function getUploadedFiles($input_name) {
+		$file_bag = _elgg_services()->request->files;
+		if (!$file_bag->has($input_name)) {
+			return false;
+		}
+
+		$files = $file_bag->get($input_name);
+		if (!$files) {
+			return [];
+		}
+		if (!is_array($files)) {
+			$files = [$files];
+		}
+		return array_filter($files);
+	}
+
+	/**
+	 * Save uploaded files
+	 *
+	 * @param string $input_name Form input name
+	 * @return ElggFile[]
+	 */
+	protected function saveUploadedFiles($input_name) {
+
+		$files = [];
+		
+		$uploaded_files = $this->getUploadedFiles($input_name);
+		
+		if (empty($uploaded_files)) {
+			return $files;
+		}
+
+		foreach ($uploaded_files as $upload) {
+			if (!$upload->isValid()) {
+				continue;
+			}
+
+			$file = new ElggFile();
+			$file->subtype = 'file';
+			$file->owner_guid = elgg_get_logged_in_user_guid();
+
+			$old_filestorename = '';
+			if ($file->exists()) {
+				$old_filestorename = $file->getFilenameOnFilestore();
+			}
+
+			$originalfilename = $upload->getClientOriginalName();
+			$file->originalfilename = $originalfilename;
+			if (empty($file->title)) {
+				$file->title = htmlspecialchars($file->originalfilename, ENT_QUOTES, 'UTF-8');
+			}
+
+			$file->upload_time = time();
+			$prefix = $file->filestore_prefix ? : 'file';
+			$prefix = trim($prefix, '/');
+			$filename = elgg_strtolower("$prefix/{$file->upload_time}{$file->originalfilename}");
+			$file->setFilename($filename);
+			$file->filestore_prefix = $prefix;
+
+			$hook_params = [
+				'file' => $file,
+				'upload' => $upload,
+			];
+
+			$uploaded = _elgg_services()->hooks->trigger('upload', 'file', $hook_params);
+			if ($uploaded !== true && $uploaded !== false) {
+				$filestorename = $file->getFilenameOnFilestore();
+				try {
+					$uploaded = $upload->move(pathinfo($filestorename, PATHINFO_DIRNAME), pathinfo($filestorename, PATHINFO_BASENAME));
+				} catch (FileException $ex) {
+					elgg_log($ex->getMessage(), 'ERROR');
+					$uploaded = false;
+				}
+			}
+
+			if (!$uploaded) {
+				continue;
+			}
+
+			if ($old_filestorename && $old_filestorename != $file->getFilenameOnFilestore()) {
+				// remove old file
+				unlink($old_filestorename);
+			}
+			$mime_type = $file->detectMimeType(null, $upload->getClientMimeType());
+			$file->setMimeType($mime_type);
+			$file->simpletype = elgg_get_file_simple_type($mime_type);
+			_elgg_services()->events->triggerAfter('upload', 'file', $file);
+
+			if (!$file->save() || !$file->exists()) {
+				$file->delete();
+				continue;
+			}
+
+			if ($file->saveIconFromElggFile($file)) {
+				$file->thumbnail = $file->getIcon('small')->getFilename();
+				$file->smallthumb = $file->getIcon('medium')->getFilename();
+				$file->largethumb = $file->getIcon('large')->getFilename();
+			}
+
+			$files[] = $file;
+		}
+
+		return $files;
+	}
+
+	/**
 	 * Attach attachments to an entity
 	 *
 	 * @param ElggEntity $entity     Subject entity
@@ -165,6 +189,7 @@ class AttachmentService {
 	 * @return bool
 	 */
 	public function attach(ElggEntity $entity, ElggEntity $attachment) {
+		Notifications::registerNotificationHooks($entity);
 		return $entity->addRelationship($attachment->guid, 'attached');
 	}
 
@@ -195,7 +220,7 @@ class AttachmentService {
 	public function getAttachments(ElggEntity $entity, array $options = array()) {
 		$options = $this->getAttachmentsFilterOptions($entity, $options);
 		$attachments = elgg_get_entities_from_relationship($options);
-		if ($attachments) {
+		if (is_array($attachments)) {
 			foreach ($attachments as $attachment) {
 				$attachment->setVolatileData('attachment_subject', $entity->guid);
 			}
@@ -230,56 +255,6 @@ class AttachmentService {
 			'inverse_relationship' => false,
 		);
 		return array_merge($defaults, $options);
-	}
-
-	private static $fileKeys = array('error', 'name', 'size', 'tmp_name', 'type');
-
-	/**
-	 * http://api.symfony.com/2.3/Symfony/Component/HttpFoundation/FileBag.html
-	 * 
-	 * Fixes a malformed PHP $_FILES array.
-	 *
-	 * PHP has a bug that the format of the $_FILES array differs, depending on
-	 * whether the uploaded file fields had normal field names or array-like
-	 * field names ("normal" vs. "parent[child]").
-	 *
-	 * This method fixes the array to look like the "normal" $_FILES array.
-	 *
-	 * It's safe to pass an already converted array, in which case this method
-	 * just returns the original array unmodified.
-	 *
-	 * @param array $data An array of file details
-	 *
-	 * @return array
-	 */
-	protected function fixPhpFilesArray($data) {
-		if (!is_array($data)) {
-			return $data;
-		}
-
-		$keys = array_keys($data);
-		sort($keys);
-
-		if (self::$fileKeys != $keys || !isset($data['name']) || !is_array($data['name'])) {
-			return $data;
-		}
-
-		$files = $data;
-		foreach (self::$fileKeys as $k) {
-			unset($files[$k]);
-		}
-
-		foreach ($data['name'] as $key => $name) {
-			$files[$key] = $this->fixPhpFilesArray(array(
-				'error' => $data['error'][$key],
-				'name' => $name,
-				'type' => $data['type'][$key],
-				'tmp_name' => $data['tmp_name'][$key],
-				'size' => $data['size'][$key],
-			));
-		}
-
-		return $files;
 	}
 
 }
