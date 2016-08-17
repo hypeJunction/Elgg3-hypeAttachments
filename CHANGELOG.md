@@ -1,3 +1,13 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/hypeJunction/hypeAttachments/compare/2.0.0...v2.0.1) (2016-08-17)
+
+
+### Bug Fixes
+
+* **composer:** add missing composer installer name ([8fb28ee](https://github.com/hypeJunction/hypeAttachments/commit/8fb28ee))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/hypeJunction/hypeAttachments/compare/1.0.2...v2.0.0) (2016-08-17)
 
