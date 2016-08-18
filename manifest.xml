@@ -28,6 +28,11 @@
 		<name>hypeDropzone</name>
 	</suggests>
 
+	<suggests>
+		<type>plugin</type>
+		<name>sbw_attachments</name>
+	</suggests>
+
 	<requires>
 		<type>plugin</type>
 		<name>file</name>
