@@ -20,7 +20,11 @@ class AttachmentService {
 	 */
 	static $instance;
 
-	public function getInstance() {
+	/**
+	 * Returns singleton
+	 * @return self
+	 */
+	public static function getInstance() {
 		if (!self::$instance) {
 			self::$instance = new self();
 		}
