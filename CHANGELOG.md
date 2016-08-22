@@ -1,3 +1,14 @@
+<a name="2.0.3"></a>
+## [2.0.3](https://github.com/hypeJunction/hypeAttachments/compare/2.0.2...v2.0.3) (2016-08-22)
+
+
+### Bug Fixes
+
+* **classes:** make singleton instance static ([22d37d1](https://github.com/hypeJunction/hypeAttachments/commit/22d37d1))
+* **manifest:** document require dependency on alc_builder_api ([b364263](https://github.com/hypeJunction/hypeAttachments/commit/b364263))
+
+
+
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/hypeJunction/hypeAttachments/compare/2.0.1...v2.0.2) (2016-08-17)
 
