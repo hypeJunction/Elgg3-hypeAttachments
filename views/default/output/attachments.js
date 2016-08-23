@@ -1,7 +1,7 @@
 /**
  * Ajaxify detach action
  *
- * @module object/format/attachment
+ * @module output/attachments
  */
 define(function (require) {
 	var $ = require('jquery');
