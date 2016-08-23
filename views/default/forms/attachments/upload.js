@@ -13,7 +13,6 @@ define(function (require) {
 
 		$form.ajaxSubmit({
 			dataType: 'json',
-			iframe: true,
 			headers: {
 				'X-Requested-With': 'XMLHttpRequest'
 			},
