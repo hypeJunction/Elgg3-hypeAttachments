@@ -1,7 +1,9 @@
 define(function (require) {
 
+	var elgg = require('elgg');
 	var $ = require('jquery');
 	require('jquery.form');
+	var lightbox = require('elgg/lightbox');
 
 	$(document).on('submit', '#colorbox .elgg-form-attachments-upload', function (e) {
 		e.preventDefault();
@@ -10,7 +12,7 @@ define(function (require) {
 		$form.ajaxSubmit({
 			dataType: 'json',
 			iframe: true,
-			data: {
+			headers: {
 				'X-Requested-With': 'XMLHttpRequest'
 			},
 			beforeSend: function () {
@@ -21,7 +23,7 @@ define(function (require) {
 			},
 			success: function (data) {
 				if (data.status >= 0) {
-					$.colorbox.close();
+					lightbox.close();
 				}
 				if (data.system_messages) {
 					elgg.register_error(data.system_messages.error);
