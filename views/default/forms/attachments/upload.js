@@ -4,8 +4,10 @@ define(function (require) {
 	var $ = require('jquery');
 	require('jquery.form');
 	var lightbox = require('elgg/lightbox');
+	var spinner = require('elgg/spinner');
 
 	$(document).on('submit', '#colorbox .elgg-form-attachments-upload', function (e) {
+
 		e.preventDefault();
 		var $form = $(this);
 
@@ -17,9 +19,11 @@ define(function (require) {
 			},
 			beforeSend: function () {
 				$form.find('[type="submit"]').prop('disabled', true).addClass('elgg-state-disabled');
+				spinner.start();
 			},
 			complete: function () {
 				$form.find('[type="submit"]').prop('disabled', false).removeClass('elgg-state-disabled');
+				spinner.stop();
 			},
 			success: function (data) {
 				if (data.status >= 0) {
