@@ -1,3 +1,16 @@
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/hypeJunction/hypeAttachments/compare/2.0.3...v2.0.4) (2016-08-24)
+
+
+### Bug Fixes
+
+* **js:** add spinner for form submit action ([1d4dc44](https://github.com/hypeJunction/hypeAttachments/commit/1d4dc44))
+* **js:** fix variables and dependencies in AMD module ([3b777a3](https://github.com/hypeJunction/hypeAttachments/commit/3b777a3))
+* **js:** form submission now works as expected with jquery.form ([c3af65f](https://github.com/hypeJunction/hypeAttachments/commit/c3af65f))
+* **releases:** fix supported version in release docs ([746437c](https://github.com/hypeJunction/hypeAttachments/commit/746437c))
+
+
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/hypeJunction/hypeAttachments/compare/2.0.2...v2.0.3) (2016-08-22)
 
