@@ -43,10 +43,12 @@ final class Menus {
 				// Attachment has been made when the entity was created, so it can be deleted
 				$delete = true;
 				$title = elgg_echo('delete');
+				$icon = 'delete';
 			} else {
 				// Attachment has been added externally, do not delete it
 				$delete = false;
 				$title = elgg_echo('attachments:detach');
+				$icon = 'chain-broken';
 			}
 
 			$return[] = ElggMenuItem::factory([
@@ -75,6 +77,9 @@ final class Menus {
 					'maxWidth' => '600px',
 				]),
 				'deps' => ['elgg/lightbox'],
+				'data' => [
+					'icon' => 'link',
+				]
 			]);
 		}
 
