@@ -13,6 +13,9 @@
 			"email": "info@hypejunction.com"
 		}
 	],
+	"extra": {
+		"installer-name": "hypeAttachments"
+	},
 	"require": {
 		"php": ">=5.5",
 		"composer/installers": "~1.0",
@@ -22,43 +25,6 @@
 		"psr-0": {
 			"hypeJunction/": "classes/hypeJunction/"
 		}
-	},
-	"extra": {
-		"installer-name": "hypeAttachments"
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"require-dev": {
-		"elgg/elgg": "~2.1",
-		"phpunit/phpunit": "~4.1",
-		"elgg/sniffs": "dev-master",
-		"squizlabs/php_codesniffer": "~1.5",
-		"simpletest/simpletest": "~1.1",
-		"phpdocumentor/reflection-docblock": "~2.0"
-	},
-	"autoload-dev": {
-		"psr-0": {
-			"hypeJunction": "tests/phpunit/classes/hypeJunction/"
-		}
-	},
-	"scripts": {
-		"travis:install": [
-			"phpenv rehash",
-			"composer self-update",
-			"composer global require \"fxp/composer-asset-plugin:~1.1.1\"",
-			"composer install --prefer-source --optimize-autoloader"
-		],
-		"lint": [
-            "phpcs --standard=vendor/elgg/sniffs/elgg.xml -p --warning-severity=0 --ignore=*/tests/*,*/vendor/*,*/vendors/*,*/mod/* classes actions languages start.php",
-            "composer validate --verbose"
-        ],
-        "test": [
-			"phpunit --coverage-clover=coverage.clover"
-		],
-		"clover": [
-			"wget https://scrutinizer-ci.com/ocular.phar",
-			"php ocular.phar code-coverage:upload --format=php-clover coverage.clover"
-		]
 	}
 }
 
