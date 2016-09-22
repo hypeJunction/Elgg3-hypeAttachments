@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/hypeJunction/hypeAttachments/compare/2.1.0...v2.1.1) (2016-09-22)
+
+
+### Bug Fixes
+
+* **deps:** correctly resolve dependencies ([d8d48e5](https://github.com/hypeJunction/hypeAttachments/commit/d8d48e5))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/hypeJunction/hypeAttachments/compare/2.0.5...v2.1.0) (2016-09-22)
 
