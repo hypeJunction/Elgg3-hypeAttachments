@@ -1,3 +1,13 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/hypeJunction/hypeAttachments/compare/2.1.1...v2.1.2) (2016-09-22)
+
+
+### Bug Fixes
+
+* **composer:** do not include namespace in autoloader ([30505c6](https://github.com/hypeJunction/hypeAttachments/commit/30505c6))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/hypeJunction/hypeAttachments/compare/2.1.1...v2.1.1) (2016-09-22)
 
