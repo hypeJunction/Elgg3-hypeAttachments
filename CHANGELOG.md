@@ -1,3 +1,18 @@
+<a name="2.0.5"></a>
+## [2.0.5](https://github.com/hypeJunction/hypeAttachments/compare/2.0.4...v2.0.5) (2016-09-22)
+
+
+### Bug Fixes
+
+* **messages:** apply special rules to private messages ([862f9cb](https://github.com/hypeJunction/hypeAttachments/commit/862f9cb))
+* **notifications:** throttle attachment notifications ([187f440](https://github.com/hypeJunction/hypeAttachments/commit/187f440))
+
+### Features
+
+* **ui:** add menu item icons ([9aaccd0](https://github.com/hypeJunction/hypeAttachments/commit/9aaccd0))
+
+
+
 <a name="2.0.4"></a>
 ## [2.0.4](https://github.com/hypeJunction/hypeAttachments/compare/2.0.3...v2.0.4) (2016-08-24)
 
