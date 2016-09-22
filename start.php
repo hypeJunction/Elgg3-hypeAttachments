@@ -33,7 +33,8 @@ elgg_register_event_handler('init', 'system', function () {
 
 	elgg_register_event_handler('create', 'object', [Events::class, 'saveMessageAttachments']);
 	elgg_register_event_handler('update', 'object', [Events::class, 'saveMessageAttachments']);
-
+	elgg_register_plugin_hook_handler('permissions_check', 'object', [Permissions::class, 'protectMessageAttachments'], 999);
+	
 	elgg_register_event_handler('update', 'object', [Events::class, 'syncAttachmentAccess']);
 
 	elgg_extend_view('css/elgg', 'css/input/attachments.css');
