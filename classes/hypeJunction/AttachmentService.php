@@ -38,7 +38,7 @@ class AttachmentService {
 	 * @param string     $input_name Form input name
 	 * @param array      $attributes Metadata and attributes to set on each uploaded file
 	 *                               This can include container_guid, origin etc
-	 * @return ElggFile[] GUIDs of attached file entities
+	 * @return ElggFile[] Attached file entities
 	 */
 	public function attachUploadedFiles(ElggEntity $entity, $input_name, array $attributes = []) {
 

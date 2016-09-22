@@ -9,7 +9,7 @@ use hypeJunction\AttachmentService;
  * @param string      $input_name Form input name
  * @param array       $attributes Metadata and attributes to set on each uploaded file
  *                                This can include container_guid, origin etc
- * @return int[] GUIDs of attached file entities
+ * @return ElggFile[] Attached file entities
  */
 function hypeapps_attach_uploaded_files(ElggEntity $entity, $input_name, array $attributes = []) {
 	$service = AttachmentService::getInstance();
