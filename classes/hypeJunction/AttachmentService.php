@@ -193,7 +193,10 @@ class AttachmentService {
 	 * @return bool
 	 */
 	public function attach(ElggEntity $entity, ElggEntity $attachment) {
-		Notifications::registerNotificationHooks($entity);
+		if (time() - $entity->time_created > 60) {
+			// Only notify users if it has been over a minute since the entity was created
+			Notifications::registerNotificationHooks($entity);
+		}
 		return $entity->addRelationship($attachment->guid, 'attached');
 	}
 

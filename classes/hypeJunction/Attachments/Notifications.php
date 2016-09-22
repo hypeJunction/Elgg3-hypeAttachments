@@ -16,7 +16,7 @@ final class Notifications {
 	 * @param ElggEntity $entity Entity
 	 * @return void
 	 */
-	public static function registerNotificationHooks(ElggEntity$entity) {
+	public static function registerNotificationHooks(ElggEntity $entity) {
 		$subtype = $entity->getSubtype();
 		elgg_register_notification_event('object', $subtype, ['attach']);
 
