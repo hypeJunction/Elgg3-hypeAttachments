@@ -1,9 +1,12 @@
-
 <?php
 
 $entity = elgg_extract('entity', $vars);
 
 if (!$entity instanceof ElggEntity) {
+	return;
+}
+
+if (!hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
 	return;
 }
 
