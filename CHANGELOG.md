@@ -1,3 +1,14 @@
+<a name="2.1.3"></a>
+## [2.1.3](https://github.com/hypeJunction/hypeAttachments/compare/2.1.2...v2.1.3) (2016-10-16)
+
+
+### Bug Fixes
+
+* **views:** do not display attachments for entities that are not supported ([c75a847](https://github.com/hypeJunction/hypeAttachments/commit/c75a847))
+* **views:** no longer WSODs in scrict mode ([d529b93](https://github.com/hypeJunction/hypeAttachments/commit/d529b93))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/hypeJunction/hypeAttachments/compare/2.1.1...v2.1.2) (2016-09-22)
 
