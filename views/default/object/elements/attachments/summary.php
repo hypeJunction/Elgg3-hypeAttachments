@@ -12,9 +12,6 @@ if (!$count) {
 	return;
 }
 
-elgg_load_css('lightbox');
-elgg_load_js('ligthbox');
-
 $link = elgg_view('output/url', [
 	'text' => elgg_echo('attachments:count', [$count]),
 	'href' => "attachments/view/$entity->guid",
