@@ -18,6 +18,10 @@ final class Views {
 	 */
 	public static function filterSummaryVars($hook, $type, $return, $params) {
 
+		if (elgg_is_active_plugin('hypeUI')) {
+			return;
+		}
+
 		$entity = elgg_extract('entity', $return);
 		if (!$entity) {
 			return;

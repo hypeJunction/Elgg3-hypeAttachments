@@ -17,6 +17,7 @@ final class Menus {
 	 * @param string         $type   "menu:entity"
 	 * @param ElggMenuItem[] $return Menu
 	 * @param array          $params Hook params
+	 *
 	 * @return ElggMenuItem[]
 	 */
 	public static function setupEntityMenu($hook, $type, $return, $params) {
@@ -85,4 +86,40 @@ final class Menus {
 		return $return;
 	}
 
+	/**
+	 * Setup social menu
+	 *
+	 * @param string         $hook   "register"
+	 * @param string         $type   "menu:entity_social"
+	 * @param ElggMenuItem[] $return Menu
+	 * @param array          $params Hook params
+	 *
+	 * @return ElggMenuItem[]
+	 */
+	public static function setupEntitySocialMenu($hook, $type, $return, $params) {
+
+		$entity = elgg_extract('entity', $params);
+
+		if (!hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
+			return;
+		}
+
+		$count = hypeapps_has_attachments($entity);
+		if (!$count) {
+			return;
+		}
+
+		$return[] = ElggMenuItem::factory([
+			'name' => 'attachments',
+			'text' => $count,
+			'icon' => 'paperclip',
+			'href' => "attachments/view/$entity->guid",
+			'class' => 'elgg-lightbox',
+			'data-colorbox-opts' => json_encode([
+				'maxWidth' => '600px',
+			]),
+		]);
+
+		return $return;
+	}
 }

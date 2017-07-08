@@ -38,5 +38,7 @@ elgg_register_event_handler('init', 'system', function () {
 	elgg_register_event_handler('update', 'object', [Events::class, 'syncAttachmentAccess']);
 
 	elgg_extend_view('css/elgg', 'css/input/attachments.css');
+
+	elgg_register_plugin_hook_handler('register', 'menu:entity_social', [Menus::class, 'setupEntitySocialMenu']);
 	
 });
