@@ -53,7 +53,7 @@ final class Menus {
 
 			$return[] = ElggMenuItem::factory([
 				'name' => 'delete',
-				'text' => elgg_view_icon('delete'),
+				'text' => $title,
 				'href' => elgg_http_add_url_query_elements('action/attachments/detach', [
 					'guid' => $subject->guid,
 					'attachment_guid' => $entity->guid,
@@ -64,6 +64,7 @@ final class Menus {
 				'link_class' => 'attachments-detach-action',
 				'title' => $title,
 				'priority' => $priority,
+				'icon' => $icon,
 			]);
 		}
 
@@ -77,9 +78,7 @@ final class Menus {
 					'maxWidth' => '600px',
 				]),
 				'deps' => ['elgg/lightbox'],
-				'data' => [
-					'icon' => 'link',
-				]
+				'icon' => 'paperclip',
 			]);
 		}
 
