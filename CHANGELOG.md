@@ -1,3 +1,15 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/hypeJunction/hypeAttachments/compare/2.1.3...v2.2.0) (2017-07-08)
+
+
+### Features
+
+* **ui:** integrate menus with hypeUI ([351cb67](https://github.com/hypeJunction/hypeAttachments/commit/351cb67))
+* **ui:** integrate with hypeUI ([8965264](https://github.com/hypeJunction/hypeAttachments/commit/8965264))
+* **ui:** integrate with hypeUI ([e702f91](https://github.com/hypeJunction/hypeAttachments/commit/e702f91))
+
+
+
 <a name="2.1.3"></a>
 ## [2.1.3](https://github.com/hypeJunction/hypeAttachments/compare/2.1.2...v2.1.3) (2016-10-16)
 
