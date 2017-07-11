@@ -1,3 +1,13 @@
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/hypeJunction/hypeAttachments/compare/2.2.1...v2.2.2) (2017-07-11)
+
+
+### Bug Fixes
+
+* **ui:** do not append attachments to body when hypeUI is enabled ([28ece82](https://github.com/hypeJunction/hypeAttachments/commit/28ece82))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/hypeJunction/hypeAttachments/compare/2.2.0...v2.2.1) (2017-07-11)
 
