@@ -81,7 +81,7 @@ final class Views {
 			}
 			$return['body'] = $body;
 		}
-		
+
 		return $return;
 	}
 
