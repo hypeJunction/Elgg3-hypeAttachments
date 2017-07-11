@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/hypeJunction/hypeAttachments/compare/2.2.0...v2.2.1) (2017-07-11)
+
+
+### Bug Fixes
+
+* **ui:** do not set body if hypeUI is enabled ([3c9cb28](https://github.com/hypeJunction/hypeAttachments/commit/3c9cb28))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/hypeJunction/hypeAttachments/compare/2.1.3...v2.2.0) (2017-07-08)
 
