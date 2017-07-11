@@ -70,14 +70,18 @@ final class Views {
 			return;
 		}
 
-		$body = elgg_extract('body', $return, '');
-		if (!$body) {
-			$body = $attachments;
+		if (elgg_is_active_plugin('hypeUI')) {
+			$return['attachments'] .= $attachments;
 		} else {
-			$body .= '<br />' . $attachments;
+			$body = elgg_extract('body', $return, '');
+			if (!$body) {
+				$body = $attachments;
+			} else {
+				$body .= '<br />' . $attachments;
+			}
+			$return['body'] = $body;
 		}
-		$return['body'] = $body;
-
+		
 		return $return;
 	}
 
