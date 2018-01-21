@@ -16,6 +16,7 @@ final class Events {
 	 * @param string     $event  "create"|"update"
 	 * @param string     $type   "object"
 	 * @param ElggEntity $entity Entity
+	 *
 	 * @return void
 	 */
 	public static function saveCommentAttachments($event, $type, $entity) {
@@ -43,6 +44,7 @@ final class Events {
 	 * @param string     $event  "create"|"update"
 	 * @param string     $type   "object"
 	 * @param ElggEntity $entity Entity
+	 *
 	 * @return void
 	 */
 	public static function saveMessageAttachments($event, $type, $entity) {
@@ -87,6 +89,7 @@ final class Events {
 	 * @param string     $event  'update:after'
 	 * @param string     $type   'object'
 	 * @param ElggEntity $entity The updated entity
+	 *
 	 * @return void
 	 */
 	public static function syncAttachmentAccess($event, $type, $entity) {
@@ -95,22 +98,25 @@ final class Events {
 		}
 
 		$ia = elgg_set_ignore_access(true);
-		$options = array(
+		$options = [
 			'type' => 'object',
 			'subtype' => 'file',
 			'container_guid' => $entity->guid, // uploaded attachments are contained by the entity
 			'metadata_name_value_pairs' => [
-				'name' => 'origin',
-				'value' => 'attachments',
+				[
+					'name' => 'origin',
+					'value' => 'attachments',
+				],
 			],
-			'wheres' => array(
+			'wheres' => [
 				"e.access_id != {$entity->access_id}"
-			),
+			],
 			'limit' => 0,
-		);
+			'batch' => true,
+		];
 
-		$batch = new ElggBatch('elgg_get_entities_from_metadata', $options, null, 25, false);
-		foreach ($batch as $attachment) {
+		$attachments = elgg_get_entities($options);
+		foreach ($attachments as $attachment) {
 			// Update comment access_id
 			$attachment->access_id = $entity->access_id;
 			$attachment->save();

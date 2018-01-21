@@ -46,7 +46,7 @@ final class Permissions {
 
 		$ia = elgg_set_ignore_access(true);
 
-		$messages = elgg_get_entities_from_relationship([
+		$messages = elgg_get_entities([
 			'types' => 'object',
 			'subtypes' => 'messages',
 			'relationship' => 'attached',

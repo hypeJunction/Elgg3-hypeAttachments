@@ -31,5 +31,6 @@ View files here:
 ',
 
 	'attachments:settings:allow_attachments' => 'Select object types that can have attachments',
-	
+
+	'field:attachments' => 'Attachments',
 ];

@@ -3,28 +3,27 @@
 $entity = elgg_extract('entity', $vars);
 
 $dbprefix = elgg_get_config('dbprefix');
-$sql = "
-	SELECT *
-	FROM {$dbprefix}entity_subtypes
-	WHERE type = :type
-";
-$params = [':type' => 'object'];
 
-$rows = get_data($sql, null, $params);
+$qb = \Elgg\Database\Select::fromTable('entities');
+$qb->select(['subtype'])
+	->groupBy('subtype')
+	->where($qb->compare('type', '=', 'object', ELGG_VALUE_STRING));
+
+$rows = get_data($qb);
 
 $options = [];
 $values = [];
 
 ob_start();
 foreach ($rows as $row) {
-	$type = $row->type;
 	$subtype = $row->subtype;
-	echo elgg_view_input('checkbox', [
-		'name' => "params[$type:$subtype]",
+	echo elgg_view_field([
+		'#type' => 'checkbox',
+		'name' => "params[object:$subtype]",
 		'value' => '1',
 		'default' => '0',
-		'checked' => (bool) $entity->{"$type:$subtype"},
-		'label' => elgg_echo("item:$type:$subtype"),
+		'checked' => (bool) $entity->{"object:$subtype"},
+		'label' => elgg_echo("collection:object:$subtype"),
 	]);
 }
 $inputs = ob_get_clean();

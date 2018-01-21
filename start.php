@@ -11,12 +11,9 @@ require_once __DIR__ . '/autoloader.php';
 use hypeJunction\Attachments\Events;
 use hypeJunction\Attachments\Menus;
 use hypeJunction\Attachments\Permissions;
-use hypeJunction\Attachments\Router;
 use hypeJunction\Attachments\Views;
 
 elgg_register_event_handler('init', 'system', function () {
-
-	elgg_register_page_handler('attachments', [Router::class, 'route']);
 
 	elgg_register_action('attachments/attach', __DIR__ . '/actions/attachments/attach.php');
 	elgg_register_action('attachments/detach', __DIR__ . '/actions/attachments/detach.php');
@@ -39,6 +36,10 @@ elgg_register_event_handler('init', 'system', function () {
 
 	elgg_extend_view('css/elgg', 'css/input/attachments.css');
 
-	elgg_register_plugin_hook_handler('register', 'menu:entity_social', [Menus::class, 'setupEntitySocialMenu']);
-	
+	elgg_register_plugin_hook_handler('register', 'menu:social', [Menus::class, 'setupEntitySocialMenu']);
+
+	// Arck CMS integration
+	elgg_register_plugin_hook_handler('fields', 'all', [\hypeJunction\Attachments\CMS::class, 'addAttachmentField']);
+	elgg_register_plugin_hook_handler('fields:profile', 'all', [\hypeJunction\Attachments\CMS::class, 'filterProfileFields']);
+
 });

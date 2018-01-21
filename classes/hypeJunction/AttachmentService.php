@@ -166,7 +166,7 @@ class AttachmentService {
 			$mime_type = $file->detectMimeType(null, $upload->getClientMimeType());
 			$file->setMimeType($mime_type);
 			$file->simpletype = elgg_get_file_simple_type($mime_type);
-			_elgg_services()->events->triggerAfter('upload', 'file', $file);
+			elgg_trigger_after_event('upload', 'file', $file);
 
 			if (!$file->save() || !$file->exists()) {
 				$file->delete();
@@ -226,7 +226,7 @@ class AttachmentService {
 	 */
 	public function getAttachments(ElggEntity $entity, array $options = array()) {
 		$options = $this->getAttachmentsFilterOptions($entity, $options);
-		$attachments = elgg_get_entities_from_relationship($options);
+		$attachments = elgg_get_entities($options);
 		if (is_array($attachments)) {
 			foreach ($attachments as $attachment) {
 				$attachment->setVolatileData('attachment_subject', $entity->guid);

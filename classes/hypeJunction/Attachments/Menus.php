@@ -33,6 +33,8 @@ final class Menus {
 
 		if ($subject instanceof ElggEntity) {
 
+			$priority = 900;
+
 			foreach ($return as $key => $item) {
 				if ($item instanceof ElggMenuItem && $item->getName() == 'delete') {
 					$priority = $item->getPriority();
@@ -55,12 +57,11 @@ final class Menus {
 			$return[] = ElggMenuItem::factory([
 				'name' => 'delete',
 				'text' => $title,
-				'href' => elgg_http_add_url_query_elements('action/attachments/detach', [
+				'href' => elgg_generate_action_url('attachments/detach', [
 					'guid' => $subject->guid,
 					'attachment_guid' => $entity->guid,
 					'delete' => $delete,
 				]),
-				'is_action' => true,
 				'confirm' => true,
 				'link_class' => 'attachments-detach-action',
 				'title' => $title,
@@ -73,7 +74,7 @@ final class Menus {
 			$return[] = ElggMenuItem::factory([
 				'name' => 'attach',
 				'text' => elgg_echo('attachments:upload'),
-				'href' => "attachments/upload/$entity->guid",
+				'href' => elgg_generate_url('attachments:upload', ['guid' => $entity->guid]),
 				'link_class' => 'elgg-lightbox',
 				'data-colorbox-opts' => json_encode([
 					'maxWidth' => '600px',
@@ -90,7 +91,7 @@ final class Menus {
 	 * Setup social menu
 	 *
 	 * @param string         $hook   "register"
-	 * @param string         $type   "menu:entity_social"
+	 * @param string         $type   "menu:social"
 	 * @param ElggMenuItem[] $return Menu
 	 * @param array          $params Hook params
 	 *
@@ -111,13 +112,12 @@ final class Menus {
 
 		$return[] = ElggMenuItem::factory([
 			'name' => 'attachments',
-			'text' => $count,
+			'badge' => $count,
+			'text' => '',
 			'icon' => 'paperclip',
-			'href' => "attachments/view/$entity->guid",
+			'href' => elgg_generate_url('attachments:view', ['guid' => $entity->guid]),
 			'class' => 'elgg-lightbox',
-			'data-colorbox-opts' => json_encode([
-				'maxWidth' => '600px',
-			]),
+			'priority' => 900,
 		]);
 
 		return $return;
