@@ -32,7 +32,6 @@ final class Menus {
 		$subject = get_entity($subject_guid);
 
 		if ($subject instanceof ElggEntity) {
-
 			$priority = 900;
 
 			foreach ($return as $key => $item) {

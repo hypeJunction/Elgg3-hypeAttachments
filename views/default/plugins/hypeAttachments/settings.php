@@ -9,7 +9,7 @@ $qb->select(['subtype'])
 	->groupBy('subtype')
 	->where($qb->compare('type', '=', 'object', ELGG_VALUE_STRING));
 
-$rows = get_data($qb);
+$rows = elgg()->db->getData($qb);
 
 $options = [];
 $values = [];

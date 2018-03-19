@@ -9,7 +9,7 @@ final class Permissions {
 	
 	/**
 	 * Check if attachments are allowed for this type by plugin settings
-	 * 
+	 *
 	 * @param string $hook   "allow_attachments"
 	 * @param string $type   "<entity_type>:<entity_subtype>"
 	 * @param bool   $return If allowed

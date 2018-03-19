@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Attachment Service
- * 
+ *
  * @access private
  */
 class AttachmentService {
@@ -224,7 +224,7 @@ class AttachmentService {
 	 * @param array      $options Additional options
 	 * @return ElggEntity[]|false
 	 */
-	public function getAttachments(ElggEntity $entity, array $options = array()) {
+	public function getAttachments(ElggEntity $entity, array $options = []) {
 		$options = $this->getAttachmentsFilterOptions($entity, $options);
 		$attachments = elgg_get_entities($options);
 		if (is_array($attachments)) {
@@ -243,7 +243,7 @@ class AttachmentService {
 	 * @param array      $options Additional options
 	 * @return int
 	 */
-	public function hasAttachments(ElggEntity $entity, array $options = array()) {
+	public function hasAttachments(ElggEntity $entity, array $options = []) {
 		$options['count'] = true;
 		return $this->getAttachments($entity, $options);
 	}
@@ -255,12 +255,12 @@ class AttachmentService {
 	 * @param array      $options Additional options
 	 * @return array
 	 */
-	protected function getAttachmentsFilterOptions(ElggEntity $entity, array $options = array()) {
-		$defaults = array(
+	protected function getAttachmentsFilterOptions(ElggEntity $entity, array $options = []) {
+		$defaults = [
 			'relationship' => 'attached',
 			'relationship_guid' => (int) $entity->guid,
 			'inverse_relationship' => false,
-		);
+		];
 		return array_merge($defaults, $options);
 	}
 

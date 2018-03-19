@@ -6,9 +6,10 @@ use hypeJunction\AttachmentService;
  * Attach uploaded files for an entity
  *
  * @param ElggEntity $entity     Entity to which the files are attached
- * @param string      $input_name Form input name
- * @param array       $attributes Metadata and attributes to set on each uploaded file
- *                                This can include container_guid, origin etc
+ * @param string     $input_name Form input name
+ * @param array      $attributes Metadata and attributes to set on each uploaded file
+ *                               This can include container_guid, origin etc
+
  * @return ElggFile[] Attached file entities
  */
 function hypeapps_attach_uploaded_files(ElggEntity $entity, $input_name, array $attributes = []) {
@@ -33,7 +34,7 @@ function hypeapps_attach(ElggEntity $entity, ElggEntity $attachment) {
  *
  * @param ElggEntity $entity     Subject entity
  * @param ElggFile   $attachment Attached entity
- * @param bool        $delete     Also delete attached entities
+ * @param bool       $delete     Also delete attached entities
  * @return bool
  */
 function hypeapps_detach(ElggEntity $entity, ElggEntity $attachment, $delete = false) {
@@ -45,10 +46,10 @@ function hypeapps_detach(ElggEntity $entity, ElggEntity $attachment, $delete = f
  * Returns an array of attached entities
  *
  * @param ElggEntity $entity  Subject entity
- * @param array       $options Additional options
+ * @param array      $options Additional options
  * @return ElggEntity[]|false
  */
-function hypeapps_get_attachments(ElggEntity $entity, array $options = array()) {
+function hypeapps_get_attachments(ElggEntity $entity, array $options = []) {
 	$service = AttachmentService::getInstance();
 	return $service->getAttachments($entity, $options);
 }
@@ -58,10 +59,10 @@ function hypeapps_get_attachments(ElggEntity $entity, array $options = array()) 
  * Returns a count of attachments
  *
  * @param ElggEntity $entity  Subject entity
- * @param array       $options Additional options
+ * @param array      $options Additional options
  * @return int
  */
-function hypeapps_has_attachments(ElggEntity $entity, array $options = array()) {
+function hypeapps_has_attachments(ElggEntity $entity, array $options = []) {
 	$service = AttachmentService::getInstance();
 	return $service->hasAttachments($entity, $options);
 }

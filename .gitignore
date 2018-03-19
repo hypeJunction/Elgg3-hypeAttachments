@@ -13,3 +13,4 @@ Gemfile.lock
 /tests/tmp/
 coverage.clover
 composer.lock
+yarn.lock

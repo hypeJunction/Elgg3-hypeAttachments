@@ -26,7 +26,7 @@ if ($subject && $subject->canEdit()) {
 		$title = elgg_echo('attachments:detach');
 	}
 	
-	$output .= elgg_view('output/url', array(
+	$output .= elgg_view('output/url', [
 		'text' => elgg_view_icon('delete'),
 		'href' => elgg_http_add_url_query_elements('action/attachments/detach', [
 			'guid' => $subject->guid,
@@ -36,11 +36,11 @@ if ($subject && $subject->canEdit()) {
 		'is_action' => true,
 		'class' => 'attachments-detach-action',
 		'title' => $title,
-	));
+	]);
 }
 
-echo elgg_format_element('div', array(
+echo elgg_format_element('div', [
 	'class' => 'attachments-attached-item',
 	'title' => $entity->getDisplayName(),
-		), $output);
+		], $output);
 

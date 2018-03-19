@@ -50,14 +50,14 @@ final class Notifications {
 			]) . ')';
 		}
 
-		$notification->subject = elgg_echo('attachments:notify:subject', array($entity->title), $language);
-		$notification->body = elgg_echo('attachments:notify:body', array(
+		$notification->subject = elgg_echo('attachments:notify:subject', [$entity->title], $language);
+		$notification->body = elgg_echo('attachments:notify:body', [
 			$actor->name,
 			$entity->title,
 			implode(PHP_EOL, $attachments_list),
 			$entity->getURL(),
-		), $language);
-		$notification->summary = elgg_echo('attachments:notify:summary', array($entity->title), $language);
+		], $language);
+		$notification->summary = elgg_echo('attachments:notify:summary', [$entity->title], $language);
 
 		return $notification;
 	}

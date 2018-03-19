@@ -1,16 +1,12 @@
 Attachments for Elgg
 ====================
-![Elgg 2.2](https://img.shields.io/badge/Elgg-2.2-orange.svg?style=flat-square)
+![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-orange.svg?style=flat-square)
 
 ## Features
 
  * API and UI for attaching files and other entities
  * Form input for uploading file attachments
  * Views for displaying attachments
-
-## Acknowledgements
-
- * Plugin development has been partially sponsored by [Social Business World](https://socialbusinessworld.org/)
 
 ## Usage
 
@@ -72,3 +68,7 @@ echo elgg_view('output/attachments', [
 	'entity' => $entity,
 ]);
 ```
+
+## Acknowledgements
+
+ * Early version of the plugin development has been partially sponsored by [Social Business World](https://socialbusinessworld.org/)

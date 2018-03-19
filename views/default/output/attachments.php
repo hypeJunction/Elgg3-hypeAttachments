@@ -24,8 +24,8 @@ $options = [
 	'size' => elgg_extract('size', $vars, 'medium'),
 	'no_results' => elgg_echo('attachments:no_results'),
 	'full_view' => false,
-    'item_view' => 'object/elements/primer',
-    'list_class' => 'is-borderless is-striped',
+	'item_view' => 'object/elements/primer',
+	'list_class' => 'is-borderless is-striped',
 ];
 
 $list_options = (array) elgg_extract('list_options', $vars, []);

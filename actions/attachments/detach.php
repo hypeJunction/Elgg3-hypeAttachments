@@ -8,7 +8,7 @@ $attachment = get_entity($attachment_guid);
 
 $delete = get_input('delete', false);
 
-if ($entity 
+if ($entity
 		&& $entity->canEdit()
 		&& $attachment
 		&& hypeapps_detach($entity, $attachment, $delete)
