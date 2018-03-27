@@ -11,8 +11,8 @@ if (!$output) {
 }
 
 echo elgg_view('post/module', [
-	'title' => elgg_echo('attachments'),
+	'title' => elgg_echo('attachments:title'),
 	'body' => $output,
 	'collapsed' => false,
-	'class' => 'post-attachments',
+	'class' => 'post-attachments has-list',
 ]);

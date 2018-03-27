@@ -5,34 +5,25 @@ define(function (require) {
 	require('jquery.form');
 	var lightbox = require('elgg/lightbox');
 	var spinner = require('elgg/spinner');
+	var Ajax = require('elgg/Ajax');
 
 	$(document).on('submit', '#colorbox .elgg-form-attachments-upload', function (e) {
 
 		e.preventDefault();
+
 		var $form = $(this);
 
-		$form.ajaxSubmit({
-			dataType: 'json',
-			headers: {
-				'X-Requested-With': 'XMLHttpRequest'
-			},
-			beforeSend: function () {
-				$form.find('[type="submit"]').prop('disabled', true).addClass('elgg-state-disabled');
-				spinner.start();
-			},
-			complete: function () {
-				$form.find('[type="submit"]').prop('disabled', false).removeClass('elgg-state-disabled');
-				spinner.stop();
-			},
-			success: function (data) {
-				if (data.status >= 0) {
-					lightbox.close();
-				}
-				if (data.system_messages) {
-					elgg.register_error(data.system_messages.error);
-					elgg.system_message(data.system_messages.success);
-				}
+		var ajax = new Ajax();
+
+		ajax.action($form.attr('action'), {
+			data: ajax.objectify($form),
+			beforeSend: function() {
+				$form.find('[type="submit"]').prop('disabled', true);
 			}
+		}).done(function() {
+			$form.find('[type="submit"]').prop('disabled', false);
+			lightbox.close();
 		});
+
 	});
 });
