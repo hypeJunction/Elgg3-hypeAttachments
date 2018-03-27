@@ -1,3 +1,13 @@
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.0...3.0.1) (2018-03-27)
+
+
+### Bug Fixes
+
+* **upload:** use elgg/Ajax to submit the form ([147b16f](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/147b16f))
+
+
+
 <a name="3.0.0"></a>
 # 3.0.0 (2018-03-19)
 
