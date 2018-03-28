@@ -1,3 +1,13 @@
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.1...3.0.2) (2018-03-28)
+
+
+### Features
+
+* **fields:** upgrade to new fields API ([ad09845](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/ad09845))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.0...3.0.1) (2018-03-27)
 
