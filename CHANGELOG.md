@@ -1,3 +1,13 @@
+<a name="3.0.3"></a>
+## [3.0.3](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.2...3.0.3) (2018-04-19)
+
+
+### Bug Fixes
+
+* **sql:** fix sql query to avoid fatal errors ([d6f0138](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/d6f0138))
+
+
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.1...3.0.2) (2018-03-28)
 
