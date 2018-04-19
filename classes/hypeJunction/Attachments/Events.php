@@ -2,6 +2,7 @@
 
 namespace hypeJunction\Attachments;
 
+use Elgg\Database\QueryBuilder;
 use ElggBatch;
 use ElggEntity;
 
@@ -109,7 +110,9 @@ final class Events {
 				],
 			],
 			'wheres' => [
-				"e.access_id != {$entity->access_id}"
+				function(QueryBuilder $qb) use ($entity) {
+					return $qb->compare('e.access_id', '!=', (int) $entity->access_id, ELGG_VALUE_INTEGER);
+				}
 			],
 			'limit' => 0,
 			'batch' => true,
