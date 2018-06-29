@@ -1,3 +1,20 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.0...3.1.0) (2018-06-29)
+
+
+### Bug Fixes
+
+* **sql:** fix sql query to avoid fatal errors ([d6f0138](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/d6f0138))
+* **upload:** use elgg/Ajax to submit the form ([147b16f](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/147b16f))
+
+
+### Features
+
+* **core:** updates and fixes ([f915a9f](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/f915a9f))
+* **fields:** upgrade to new fields API ([ad09845](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/ad09845))
+
+
+
 <a name="3.0.4"></a>
 ## [3.0.4](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.3...3.0.4) (2018-04-19)
 
