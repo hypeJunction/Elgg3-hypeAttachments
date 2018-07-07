@@ -25,6 +25,7 @@ class AddFormField {
 			'type' => 'attachments',
 			'priority' => 700,
 			'is_profile_field' => false,
+			'is_export_field' => true,
 		]));
 
 		return $fields;
