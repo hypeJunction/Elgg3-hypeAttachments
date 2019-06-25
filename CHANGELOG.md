@@ -1,3 +1,13 @@
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/hypeJunction/Elgg3-hypeAttachments/compare/3.1.1...3.1.2) (2019-06-25)
+
+
+### Bug Fixes
+
+* **releases:** use correct github url ([8373f61](https://github.com/hypeJunction/Elgg3-hypeAttachments/commit/8373f61))
+
+
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.1.0...3.1.1) (2019-06-25)
 
