@@ -1,3 +1,18 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.1.0...3.1.1) (2019-06-25)
+
+
+### Bug Fixes
+
+* **modules:** only add attachment module if entity supports attachments ([fe1fad8](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/fe1fad8))
+
+
+### Features
+
+* **fields:** add field to export ([9e2bb94](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/commit/9e2bb94))
+
+
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeAttachments/compare/3.0.0...3.1.0) (2018-06-29)
 
