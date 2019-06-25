@@ -13,13 +13,19 @@ class AddAttachmentsModule {
 	 */
 	public function __invoke(\Elgg\Hook $hook) {
 
+		$entity = $hook->getEntityParam();
 		$value = $hook->getValue();
 
-		$value['attachments'] = [
-			'enabled' => true,
-			'position' => 'sidebar',
-			'priority' => 300,
-		];
+
+		if (hypeapps_allow_attachments($entity->type, $entity->subtype)) {
+			$value['attachments'] = [
+				'enabled' => true,
+				'position' => 'sidebar',
+				'priority' => 300,
+				'view' => 'post/modules/attachments',
+				'label' => elgg_echo('attachments:title'),
+			];
+		}
 
 		return $value;
 	}
