@@ -20,9 +20,11 @@ final class Menus {
 	 *
 	 * @return ElggMenuItem[]
 	 */
-	public static function setupEntityMenu($hook, $type, $return, $params) {
+	public static function setupEntityMenu(\Elgg\Hook $hook) {
+		$return = $hook->getValue();
 
-		$entity = elgg_extract('entity', $params);
+
+		$entity = $hook->getParam('entity');
 
 		if (!$entity instanceof ElggEntity || !$entity->canEdit()) {
 			return;
@@ -96,9 +98,11 @@ final class Menus {
 	 *
 	 * @return ElggMenuItem[]
 	 */
-	public static function setupEntitySocialMenu($hook, $type, $return, $params) {
+	public static function setupEntitySocialMenu(\Elgg\Hook $hook) {
+		$return = $hook->getValue();
 
-		$entity = elgg_extract('entity', $params);
+
+		$entity = $hook->getParam('entity');
 
 		if (!hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
 			return;

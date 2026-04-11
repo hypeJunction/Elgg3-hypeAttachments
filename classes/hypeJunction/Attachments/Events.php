@@ -20,16 +20,16 @@ final class Events {
 	 *
 	 * @return void
 	 */
-	public static function saveCommentAttachments($event, $type, $entity) {
+	public static function saveCommentAttachments(\Elgg\Event $event) {
 
-		$subtype = $entity->getSubtype();
+		$subtype = $event->getObject()->getSubtype();
 		if (!in_array($subtype, ['comment', 'discussion_reply'])) {
 			return;
 		}
 
-		$attachments = hypeapps_attach_uploaded_files($entity, 'comment_attachments', [
-			'access_id' => $entity->access_id,
-			'container_guid' => $entity->guid,
+		$attachments = hypeapps_attach_uploaded_files($event->getObject(), 'comment_attachments', [
+			'access_id' => $event->getObject()->access_id,
+			'container_guid' => $event->getObject()->guid,
 		]);
 
 		if ($attachments) {
@@ -48,25 +48,25 @@ final class Events {
 	 *
 	 * @return void
 	 */
-	public static function saveMessageAttachments($event, $type, $entity) {
+	public static function saveMessageAttachments(\Elgg\Event $event) {
 
 		static $attachments;
 
-		$subtype = $entity->getSubtype();
+		$subtype = $event->getObject()->getSubtype();
 		if (!in_array($subtype, ['messages'])) {
 			return;
 		}
 
-		$ids = array_merge([$entity->toId], (array) $entity->fromId);
+		$ids = array_merge([$event->getObject()->toId], (array) $event->getObject()->fromId);
 		$acl_id = \hypeJunction\Access\Collection::create($ids)->getCollectionId();
 
 		$ia = elgg_set_ignore_access(true);
 
 		if (!isset($attachments)) {
-			$attachments = hypeapps_attach_uploaded_files($entity, 'message_attachments', [
+			$attachments = hypeapps_attach_uploaded_files($event->getObject(), 'message_attachments', [
 				'access_id' => $acl_id,
-				'owner_guid' => $entity->fromId,
-				'container_guid' => $entity->fromId,
+				'owner_guid' => $event->getObject()->fromId,
+				'container_guid' => $event->getObject()->fromId,
 			]);
 
 			if ($attachments) {
@@ -76,7 +76,7 @@ final class Events {
 			}
 		} else if (!empty($attachments)) {
 			foreach ($attachments as $attachment) {
-				hypeapps_attach($entity, $attachment);
+				hypeapps_attach($event->getObject(), $attachment);
 			}
 		}
 
@@ -93,8 +93,8 @@ final class Events {
 	 *
 	 * @return void
 	 */
-	public static function syncAttachmentAccess($event, $type, $entity) {
-		if (!$entity instanceof ElggEntity) {
+	public static function syncAttachmentAccess(\Elgg\Event $event) {
+		if (!$event->getObject() instanceof ElggEntity) {
 			return;
 		}
 
@@ -102,7 +102,7 @@ final class Events {
 		$options = [
 			'type' => 'object',
 			'subtype' => 'file',
-			'container_guid' => $entity->guid, // uploaded attachments are contained by the entity
+			'container_guid' => $event->getObject()->guid, // uploaded attachments are contained by the entity
 			'metadata_name_value_pairs' => [
 				[
 					'name' => 'origin',
@@ -110,8 +110,8 @@ final class Events {
 				],
 			],
 			'wheres' => [
-				function(QueryBuilder $qb) use ($entity) {
-					return $qb->compare('e.access_id', '!=', (int) $entity->access_id, ELGG_VALUE_INTEGER);
+				function(QueryBuilder $qb) use ($event->getObject()) {
+					return $qb->compare('e.access_id', '!=', (int) $event->getObject()->access_id, ELGG_VALUE_INTEGER);
 				}
 			],
 			'limit' => 0,
@@ -121,7 +121,7 @@ final class Events {
 		$attachments = elgg_get_entities($options);
 		foreach ($attachments as $attachment) {
 			// Update comment access_id
-			$attachment->access_id = $entity->access_id;
+			$attachment->access_id = $event->getObject()->access_id;
 			$attachment->save();
 		}
 

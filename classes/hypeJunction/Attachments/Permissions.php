@@ -16,9 +16,9 @@ final class Permissions {
 	 * @param array  $params Hook params
 	 * @return bool
 	 */
-	public static function allowsAttachments($hook, $type, $return, $params) {
+	public static function allowsAttachments(\Elgg\Hook $hook) {
 
-		list($entity_type, $entity_subtype) = explode(':', $type);
+		list($entity_type, $entity_subtype) = explode(':', $hook->getType());
 
 		// handle special cases
 		if ($entity_type == 'object' && $entity_subtype == 'messages') {
@@ -40,9 +40,9 @@ final class Permissions {
 	 * @param array  $params Hook params
 	 * @return bool
 	 */
-	public static function protectMessageAttachments($hook, $type, $return, $params) {
+	public static function protectMessageAttachments(\Elgg\Hook $hook) {
 
-		$entity = elgg_extract('entity', $params);
+		$entity = $hook->getParam('entity');
 
 		$ia = elgg_set_ignore_access(true);
 
