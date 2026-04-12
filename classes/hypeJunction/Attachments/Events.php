@@ -94,7 +94,8 @@ final class Events {
 	 * @return void
 	 */
 	public static function syncAttachmentAccess(\Elgg\Event $event) {
-		if (!$event->getObject() instanceof ElggEntity) {
+		$entity = $event->getObject();
+		if (!$entity instanceof ElggEntity) {
 			return;
 		}
 
@@ -102,7 +103,7 @@ final class Events {
 		$options = [
 			'type' => 'object',
 			'subtype' => 'file',
-			'container_guid' => $event->getObject()->guid, // uploaded attachments are contained by the entity
+			'container_guid' => $entity->guid, // uploaded attachments are contained by the entity
 			'metadata_name_value_pairs' => [
 				[
 					'name' => 'origin',
@@ -110,8 +111,8 @@ final class Events {
 				],
 			],
 			'wheres' => [
-				function(QueryBuilder $qb) use ($event->getObject()) {
-					return $qb->compare('e.access_id', '!=', (int) $event->getObject()->access_id, ELGG_VALUE_INTEGER);
+				function(QueryBuilder $qb) use ($entity) {
+					return $qb->compare('e.access_id', '!=', (int) $entity->access_id, ELGG_VALUE_INTEGER);
 				}
 			],
 			'limit' => 0,
@@ -121,7 +122,7 @@ final class Events {
 		$attachments = elgg_get_entities($options);
 		foreach ($attachments as $attachment) {
 			// Update comment access_id
-			$attachment->access_id = $event->getObject()->access_id;
+			$attachment->access_id = $entity->access_id;
 			$attachment->save();
 		}
 
