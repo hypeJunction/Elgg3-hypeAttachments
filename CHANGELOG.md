@@ -1,3 +1,22 @@
+<a name="4.0.0"></a>
+## [4.0.0] — Elgg 4.x migration (2026-04-15)
+
+### Breaking Changes
+
+* Requires Elgg 4.x (PHP ≥7.4)
+* Plugin ID is now lowercase: `hypeattachments`
+* Settings view moved from `plugins/hypeAttachments/settings` to `plugins/hypeattachments/settings`
+* `forward()` replaced with `elgg_redirect_response()` in actions; resource view throws `\Elgg\Exceptions\HttpException` on access denial
+
+### Changes
+
+* Removed `manifest.xml` — plugin metadata now in `elgg-plugin.php` `plugin` key
+* `composer.json`: added `elgg/elgg ^4.0`, bumped `composer/installers` to `^2.0`, PHP ≥7.4
+* Fixed `elgg_get_plugin_setting()` call to use lowercase plugin ID (camelCase silently returns false in 4.x)
+* Removed unused `elgg_get_config('dbprefix')` from settings view
+
+---
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/hypeJunction/Elgg3-hypeAttachments/compare/3.1.1...3.1.2) (2019-06-25)
 
