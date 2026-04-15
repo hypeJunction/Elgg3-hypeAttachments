@@ -71,6 +71,15 @@ SETTINGS_VALUES
         echo 'Elgg 4.x installed successfully.' . PHP_EOL;
     " 2>&1 || echo "Install completed (check for errors above)."
 
+    # Symlink core plugins so dependency resolution can find them.
+    # Core plugins live in vendor/elgg/elgg/mod/ and must be in mod/ before generateEntities().
+    for core_plugin in /var/www/html/vendor/elgg/elgg/mod/*/; do
+        plugin_name=$(basename "$core_plugin")
+        if [ ! -e "/var/www/html/mod/$plugin_name" ]; then
+            ln -sf "$core_plugin" "/var/www/html/mod/$plugin_name"
+        fi
+    done
+
     echo "Activating plugins..."
     php -r "
         require_once 'vendor/autoload.php';
