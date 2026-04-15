@@ -20,7 +20,7 @@ final class Events {
 	 *
 	 * @return void
 	 */
-	public static function saveCommentAttachments(\Elgg\Event $event) {
+	public static function saveCommentAttachments(\Elgg\Hook $event) {
 
 		$subtype = $event->getObject()->getSubtype();
 		if (!in_array($subtype, ['comment', 'discussion_reply'])) {
@@ -48,7 +48,7 @@ final class Events {
 	 *
 	 * @return void
 	 */
-	public static function saveMessageAttachments(\Elgg\Event $event) {
+	public static function saveMessageAttachments(\Elgg\Hook $event) {
 
 		static $attachments;
 
@@ -93,7 +93,7 @@ final class Events {
 	 *
 	 * @return void
 	 */
-	public static function syncAttachmentAccess(\Elgg\Event $event) {
+	public static function syncAttachmentAccess(\Elgg\Hook $event) {
 		$entity = $event->getObject();
 		if (!$entity instanceof ElggEntity) {
 			return;

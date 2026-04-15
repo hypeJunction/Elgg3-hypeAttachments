@@ -7,7 +7,7 @@ $entity = get_entity($guid);
 
 if (!$entity->canEdit() || !hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
 	register_error(elgg_echo('actionnotauthorized'));
-	forward(REFERRER);
+	return elgg_redirect_response(REFERRER);
 }
 
 $result = hypeapps_attach_uploaded_files($entity, 'uploads', [
@@ -35,4 +35,4 @@ if (empty($result)) {
 	}
 }
 
-forward($entity->getURL());
+return elgg_redirect_response($entity->getURL());

@@ -26,7 +26,7 @@ final class Permissions {
 			return false;
 		}
 		
-		if ((bool) elgg_get_plugin_setting("$entity_type:$entity_subtype", 'hypeAttachments')) {
+		if ((bool) elgg_get_plugin_setting("$entity_type:$entity_subtype", 'hypeattachments')) {
 			return true;
 		}
 	}

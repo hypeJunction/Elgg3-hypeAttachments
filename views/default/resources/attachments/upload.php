@@ -7,8 +7,7 @@ elgg_entity_gatekeeper($guid);
 
 $entity = get_entity($guid);
 if (!$entity->canEdit() || !hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
-	register_error(elgg_echo('actionnotauthorized'));
-	forward(REFERRER);
+	throw new \Elgg\Exceptions\HttpException(elgg_echo('actionnotauthorized'), ELGG_HTTP_FORBIDDEN);
 }
 
 elgg_set_page_owner_guid($entity->container_guid);
