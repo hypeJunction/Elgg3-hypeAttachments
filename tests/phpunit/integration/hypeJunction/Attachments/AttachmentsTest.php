@@ -18,19 +18,28 @@ class AttachmentsTest extends IntegrationTestCase {
 
 	public function down() {}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		// Skip the plugin-active check — the plugin is active in the
 		// production DB but the c_i_elgg_ snapshot may lag.
 		return '';
 	}
 
-	public function testPluginIsActive(): void {
+	/**
+     * @return void
+     */
+    public function testPluginIsActive(): void {
 		$plugin = elgg_get_plugin_from_id('hypeattachments');
 		$this->assertNotNull($plugin);
 		$this->assertTrue($plugin->isActive());
 	}
 
-	public function testHelperFunctionsAreDefined(): void {
+	/**
+     * @return void
+     */
+    public function testHelperFunctionsAreDefined(): void {
 		$this->assertTrue(function_exists('\\hypeapps_attach'));
 		$this->assertTrue(function_exists('\\hypeapps_detach'));
 		$this->assertTrue(function_exists('\\hypeapps_get_attachments'));
@@ -39,32 +48,47 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertTrue(function_exists('\\hypeapps_attach_uploaded_files'));
 	}
 
-	public function testActionsAreRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testActionsAreRegistered(): void {
 		$actions = _elgg_services()->actions->getAllActions();
 		$this->assertArrayHasKey('attachments/attach', $actions);
 		$this->assertArrayHasKey('attachments/detach', $actions);
 		$this->assertArrayHasKey('attachments/upload', $actions);
 	}
 
-	public function testRoutesAreRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testRoutesAreRegistered(): void {
 		$routes = _elgg_services()->routes;
 		$this->assertNotNull($routes->get('attachments:upload'));
 		$this->assertNotNull($routes->get('attachments:view'));
 	}
 
-	public function testRouteUploadResolvesToPath(): void {
+	/**
+     * @return void
+     */
+    public function testRouteUploadResolvesToPath(): void {
 		$url = elgg_generate_url('attachments:upload', ['guid' => 123]);
 		$this->assertIsString($url);
 		$this->assertStringContainsString('/attachments/upload/123', $url);
 	}
 
-	public function testRouteViewResolvesToPath(): void {
+	/**
+     * @return void
+     */
+    public function testRouteViewResolvesToPath(): void {
 		$url = elgg_generate_url('attachments:view', ['guid' => 456]);
 		$this->assertIsString($url);
 		$this->assertStringContainsString('/attachments/view/456', $url);
 	}
 
-	public function testAttachCreatesRelationship(): void {
+	/**
+     * @return void
+     */
+    public function testAttachCreatesRelationship(): void {
 		$owner = $this->createUser();
 		$subject = $this->createObject([
 			'subtype' => 'blog',
@@ -83,7 +107,10 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertGreaterThanOrEqual(1, (int) $count);
 	}
 
-	public function testGetAttachmentsReturnsAttachedEntities(): void {
+	/**
+     * @return void
+     */
+    public function testGetAttachmentsReturnsAttachedEntities(): void {
 		$owner = $this->createUser();
 		$subject = $this->createObject([
 			'subtype' => 'blog',
@@ -108,7 +135,10 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertContains((int) $a2->guid, $guids);
 	}
 
-	public function testDetachRemovesRelationship(): void {
+	/**
+     * @return void
+     */
+    public function testDetachRemovesRelationship(): void {
 		$owner = $this->createUser();
 		$subject = $this->createObject([
 			'subtype' => 'blog',
@@ -133,7 +163,10 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertNotFalse(get_entity($attachment->guid));
 	}
 
-	public function testDetachWithDeleteRemovesAttachmentEntity(): void {
+	/**
+     * @return void
+     */
+    public function testDetachWithDeleteRemovesAttachmentEntity(): void {
 		$owner = $this->createUser();
 		$subject = $this->createObject([
 			'subtype' => 'blog',
@@ -159,7 +192,10 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertFalse(get_entity($guid));
 	}
 
-	public function testAllowAttachmentsReturnsFalseForMessages(): void {
+	/**
+     * @return void
+     */
+    public function testAllowAttachmentsReturnsFalseForMessages(): void {
 		// Permissions::allowsAttachments must short-circuit for messages
 		// regardless of plugin settings — users cannot add attachments
 		// after a message has been sent.
@@ -167,7 +203,10 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertFalse((bool) $result);
 	}
 
-	public function testAllowAttachmentsDefaultsDisallowed(): void {
+	/**
+     * @return void
+     */
+    public function testAllowAttachmentsDefaultsDisallowed(): void {
 		$plugin = elgg_get_plugin_from_id('hypeattachments');
 		$this->assertNotNull($plugin);
 
@@ -179,7 +218,10 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertFalse((bool) \hypeapps_allow_attachments('object', $subtype));
 	}
 
-	public function testAllowAttachmentsReadsSettingViaLegacyIdString(): void {
+	/**
+     * @return void
+     */
+    public function testAllowAttachmentsReadsSettingViaLegacyIdString(): void {
 		// Permissions::allowsAttachments looks up the setting using the
 		// literal 'hypeAttachments' plugin id. On Elgg 4.x this lookup is
 		// case-sensitive, which is a latent plugin bug that the migration
@@ -205,42 +247,66 @@ class AttachmentsTest extends IntegrationTestCase {
 		$plugin->unsetSetting($key);
 	}
 
-	public function testEntityMenuHookRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testEntityMenuHookRegistered(): void {
 		$registered = _elgg_services()->hooks->hasHandler('register', 'menu:entity');
 		$this->assertTrue($registered, 'register/menu:entity hook must be registered');
 	}
 
-	public function testSocialMenuHookRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testSocialMenuHookRegistered(): void {
 		$registered = _elgg_services()->hooks->hasHandler('register', 'menu:social');
 		$this->assertTrue($registered, 'register/menu:social hook must be registered');
 	}
 
-	public function testAllowAttachmentsHookRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testAllowAttachmentsHookRegistered(): void {
 		$registered = _elgg_services()->hooks->hasHandler('allow_attachments', 'all');
 		$this->assertTrue($registered, 'allow_attachments/all hook must be registered');
 	}
 
-	public function testPermissionsCheckHookRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testPermissionsCheckHookRegistered(): void {
 		$registered = _elgg_services()->hooks->hasHandler('permissions_check', 'object');
 		$this->assertTrue($registered, 'permissions_check/object hook must be registered');
 	}
 
-	public function testFieldsHookRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testFieldsHookRegistered(): void {
 		$registered = _elgg_services()->hooks->hasHandler('fields', 'object');
 		$this->assertTrue($registered, 'fields/object hook must be registered');
 	}
 
-	public function testCreateEventHandlersRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testCreateEventHandlersRegistered(): void {
 		$registered = _elgg_services()->events->hasHandler('create', 'object');
 		$this->assertTrue($registered, 'create/object event must have handlers');
 	}
 
-	public function testUpdateEventHandlersRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testUpdateEventHandlersRegistered(): void {
 		$registered = _elgg_services()->events->hasHandler('update', 'object');
 		$this->assertTrue($registered, 'update/object event must have handlers');
 	}
 
-	public function testPermissionsAllowsAttachmentsReturnsFalseForMessagesDirectly(): void {
+	/**
+     * @return void
+     */
+    public function testPermissionsAllowsAttachmentsReturnsFalseForMessagesDirectly(): void {
 		$hook = $this->getMockBuilder(Hook::class)->getMock();
 		$hook->method('getType')->willReturn('object:messages');
 		$hook->method('getValue')->willReturn(false);
@@ -249,7 +315,10 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertFalse((bool) $result);
 	}
 
-	public function testCssExtensionViewRegistered(): void {
+	/**
+     * @return void
+     */
+    public function testCssExtensionViewRegistered(): void {
 		// Behavior check: the plugin extends css/elgg with its own CSS view.
 		$this->assertTrue(elgg_view_exists('css/input/attachments.css'));
 
@@ -258,11 +327,17 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertNotEmpty($output);
 	}
 
-	public function testCssViewExists(): void {
+	/**
+     * @return void
+     */
+    public function testCssViewExists(): void {
 		$this->assertTrue(elgg_view_exists('css/input/attachments.css'));
 	}
 
-	public function testAttachmentsUploadViewExists(): void {
+	/**
+     * @return void
+     */
+    public function testAttachmentsUploadViewExists(): void {
 		// resource view for attachments:upload route
 		$this->assertTrue(
 			elgg_view_exists('resources/attachments/upload')
