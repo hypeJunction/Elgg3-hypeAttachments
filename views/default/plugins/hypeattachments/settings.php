@@ -2,17 +2,12 @@
 
 $entity = elgg_extract('entity', $vars);
 
-$dbprefix = elgg_get_config('dbprefix');
-
 $qb = \Elgg\Database\Select::fromTable('entities');
 $qb->select(['subtype'])
 	->groupBy('subtype')
 	->where($qb->compare('type', '=', 'object', ELGG_VALUE_STRING));
 
 $rows = elgg()->db->getData($qb);
-
-$options = [];
-$values = [];
 
 ob_start();
 foreach ($rows as $row) {

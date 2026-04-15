@@ -5,6 +5,17 @@ use hypeJunction\Attachments\Menus;
 use hypeJunction\Attachments\Permissions;
 
 return [
+	'plugin' => [
+		'name' => 'hypeAttachments',
+		'description' => 'File attachments for Elgg',
+		'version' => '4.0.0',
+		'dependencies' => [
+			'file' => [],
+			'hypeDropzone' => [
+				'must_be_active' => false,
+			],
+		],
+	],
 	'actions' => [
 		'attachments/attach' => [],
 		'attachments/detach' => [],
