@@ -1,4 +1,4 @@
-# hypeAttachments — Architecture (Elgg 4.x)
+# hypeAttachments — Architecture (Elgg 5.x)
 
 ## Summary
 
@@ -40,21 +40,18 @@ hypeattachments/
 │       └── view.php                 View attachments page resource
 ```
 
-## Registered Hooks (elgg-plugin.php)
+## Registered Events (elgg-plugin.php)
 
-| Hook | Type | Handler | Purpose |
-|------|------|---------|---------|
+In Elgg 5.x hooks and events are unified under the `events` key. All former `hooks` entries are now `events`.
+
+| Event | Type | Handler | Purpose |
+|-------|------|---------|---------|
 | `register` | `menu:entity` | `Menus::setupEntityMenu` | Adds attach/detach menu items to entity menus |
 | `register` | `menu:social` | `Menus::setupEntitySocialMenu` | Adds paperclip count badge to social menus |
 | `allow_attachments` | `all` | `Permissions::allowsAttachments` | Checks plugin settings to allow/deny attachments |
 | `permissions_check` | `object` | `Permissions::protectMessageAttachments` | Blocks edit/delete on attachments linked to >1 message |
 | `fields` | `object` | `AddFormField` | Injects attachment field into entity forms |
 | `modules` | `object` | `AddAttachmentsModule` | Injects attachments sidebar module |
-
-## Registered Events (elgg-plugin.php)
-
-| Event | Type | Handler | Purpose |
-|-------|------|---------|---------|
 | `create` | `object` | `Events::saveCommentAttachments` | Attaches uploaded files when comment/discussion_reply is created |
 | `create` | `object` | `Events::saveMessageAttachments` | Attaches uploaded files when messages entity is created |
 | `update` | `object` | `Events::saveCommentAttachments` | Attaches uploaded files when comment/discussion_reply is updated |
@@ -98,3 +95,19 @@ Stored as plugin settings keyed `object:<subtype>` (value `1`=enabled). Managed 
 - Entity event callbacks (`Events.php`) use `\Elgg\Event` type hint (correct for 4.x entity events)
 - Hook callbacks use `\Elgg\Hook` type hint (unchanged from 3.x)
 - `AttachmentService::saveUploadedFiles()` uses `_elgg_services()->hooks->trigger('upload', 'file')` and `elgg_trigger_after_event()` — both valid 4.x APIs
+
+## Migration Notes (4.x → 5.x)
+
+- Renamed `'hooks'` key → `'events'` in `elgg-plugin.php` (hooks and events unified in 5.x)
+- Changed all `\Elgg\Hook $hook` type hints → `\Elgg\Event $event` in handler classes
+  (`Menus`, `Permissions`, `AddFormField`, `AddAttachmentsModule`, `Notifications`)
+- Renamed `$hook->` method calls → `$event->` throughout all handler classes
+- Replaced `elgg_trigger_plugin_hook()` with `elgg_trigger_event_results()` in `lib/functions.php`
+- Replaced `elgg_register_plugin_hook_handler()` / `elgg_unregister_plugin_hook_handler()` with
+  `elgg_register_event_handler()` / `elgg_unregister_event_handler()` in `Notifications.php`
+- Updated `prepareNotification()` signature to `(\Elgg\Event $event)` with `$event->getValue()` / `$event->getParam()`
+- Fixed `AttachmentService::detach()`: `delete()` is `void` in Elgg 5.x — call then return `true`
+- Bumped `composer.json`: `php >=8.2`, `elgg/elgg ^5.0`
+- Updated Docker stack: `php:8.2-apache`, Elgg `5.1.12`, PHPUnit `~9.5`
+- Tests adapted: `_elgg_services()->hooks` → `->events`, `Hook` mock → `Event` mock,
+  `assertFalse(get_entity())` → `assertFalse((bool) get_entity())` (returns null in 5.x)

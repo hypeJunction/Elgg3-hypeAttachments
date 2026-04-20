@@ -1,3 +1,22 @@
+<a name="5.0.0"></a>
+## [5.0.0] — Elgg 5.x migration (2026-04-20)
+
+### Breaking Changes
+
+* Requires Elgg 5.x (PHP ≥8.2)
+* All event/hook handlers now use `\Elgg\Event` type hint (Elgg 5.x unified events system)
+* `elgg_trigger_plugin_hook()` replaced with `elgg_trigger_event_results()` in `lib/functions.php`
+* `AttachmentService::detach()` now returns `true` after `delete()` (Elgg 5.x `delete()` is void)
+
+### Changed
+
+* Renamed `'hooks'` key → `'events'` in `elgg-plugin.php` (hooks merged into events in 5.x)
+* All `\Elgg\Hook $hook` type hints changed to `\Elgg\Event $event` in handler classes
+* `Notifications.php`: `elgg_register/unregister_plugin_hook_handler` → `elgg_register/unregister_event_handler`
+* Docker stack updated to PHP 8.2 and Elgg 5.1.12
+
+---
+
 <a name="4.0.0"></a>
 ## [4.0.0] — Elgg 4.x migration (2026-04-15)
 
