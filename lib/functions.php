@@ -75,5 +75,5 @@ function hypeapps_has_attachments(ElggEntity $entity, array $options = []) {
  * @return bool
  */
 function hypeapps_allow_attachments($type, $subtype) {
-	return (bool) elgg_trigger_plugin_hook('allow_attachments', "$type:$subtype", [], false);
+	return (bool) elgg_trigger_event_results('allow_attachments', "$type:$subtype", [], false);
 }

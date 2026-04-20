@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Attachments;
 
-use Elgg\Hook;
+use Elgg\Event;
 use hypeJunction\Fields\Collection;
 use InvalidParameterException;
 
@@ -11,14 +11,14 @@ class AddFormField {
 	/**
 	 * Add field
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return Collection
 	 * @throws InvalidParameterException
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$fields = $hook->getValue();
+		$fields = $event->getValue();
 		/* @var $fields \hypeJunction\Fields\Collection */
 
 		$fields->add('attachments', new AttachmentsField([

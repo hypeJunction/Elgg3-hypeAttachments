@@ -7,14 +7,14 @@ class AddAttachmentsModule {
 	/**
 	 * Add slug field
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Event $event Hook
 	 *
 	 * @return array
 	 */
-	public function __invoke(\Elgg\Hook $hook) {
+	public function __invoke(\Elgg\Event $event) {
 
-		$entity = $hook->getEntityParam();
-		$value = $hook->getValue();
+		$entity = $event->getEntityParam();
+		$value = $event->getValue();
 
 
 		if (hypeapps_allow_attachments($entity->type, $entity->subtype)) {

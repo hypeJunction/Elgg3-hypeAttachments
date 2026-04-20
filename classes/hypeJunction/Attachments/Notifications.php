@@ -22,24 +22,22 @@ final class Notifications {
 
 		$hook_type = "notification:attach:object:$subtype";
 		$handler = [Notifications::class, 'prepareNotification'];
-		elgg_unregister_plugin_hook_handler('prepare', $hook_type, $handler); // remove dupe
-		elgg_register_plugin_hook_handler('prepare', $hook_type, $handler);
+		elgg_unregister_event_handler('prepare', $hook_type, $handler); // remove dupe
+		elgg_register_event_handler('prepare', $hook_type, $handler);
 	}
 
 	/**
 	 * Prepare a notification message about new attachments
 	 *
-	 * @param string       $hook         Hook name
-	 * @param string       $type         Hook type
-	 * @param Notification $notification The notification to prepare
-	 * @param array        $params       Hook parameters
+	 * @param \Elgg\Event $event Event
 	 * @return Notification
 	 */
-	public static function prepareNotification($hook, $type, $notification, $params) {
+	public static function prepareNotification(\Elgg\Event $event) {
 
-		$entity = $params['event']->getObject();
-		$actor = $params['event']->getActor();
-		$language = $params['language'];
+		$notification = $event->getValue();
+		$entity = $event->getParam('event')->getObject();
+		$actor = $event->getParam('event')->getActor();
+		$language = $event->getParam('language');
 
 		$attachments_list = [];
 		$attachments = hypeapps_get_attachments($entity, ['limit' => 0]);

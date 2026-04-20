@@ -8,7 +8,7 @@ return [
 	'plugin' => [
 		'name' => 'hypeAttachments',
 		'description' => 'File attachments for Elgg',
-		'version' => '4.0.0',
+		'version' => '5.0.0',
 		'dependencies' => [
 			'file' => [],
 			'hypeDropzone' => [
@@ -31,7 +31,7 @@ return [
 			'resource' => 'attachments/view',
 		],
 	],
-	'hooks' => [
+	'events' => [
 		'register' => [
 			'menu:entity' => [
 				Menus::class . '::setupEntityMenu' => [],
@@ -60,8 +60,6 @@ return [
 				\hypeJunction\Attachments\AddAttachmentsModule::class => [],
 			],
 		],
-	],
-	'events' => [
 		'create' => [
 			'object' => [
 				Events::class . '::saveCommentAttachments' => [],
