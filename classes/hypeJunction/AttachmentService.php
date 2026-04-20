@@ -184,8 +184,9 @@ class AttachmentService
     public function detach(ElggEntity $entity, ElggEntity $attachment, $delete = false)
     {
         if ($delete) {
-            // This will check delete permissions
-            return $attachment->delete();
+            // This will check delete permissions; delete() is void in Elgg 5.x
+            $attachment->delete();
+            return true;
         }
         return $entity->removeRelationship($attachment->guid, 'attached');
     }

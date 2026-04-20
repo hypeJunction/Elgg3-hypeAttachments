@@ -3,14 +3,10 @@
 namespace hypeJunction\Attachments;
 
 use Elgg\IntegrationTestCase;
-use Elgg\Hook;
-use ElggObject;
+use Elgg\Event;
 
 /**
- * Pre-migration behavior tests for Elgg3-hypeAttachments.
- *
- * These tests capture the current (Elgg 4.x) behavior of the plugin so that
- * after the Elgg 5.x migration we can confirm nothing regressed.
+ * Integration tests for hypeAttachments on Elgg 5.x.
  */
 class AttachmentsTest extends IntegrationTestCase {
 
@@ -160,7 +156,7 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertLessThan($before, $after);
 
 		// When delete=false, the attachment entity itself must survive.
-		$this->assertNotFalse(get_entity($attachment->guid));
+		$this->assertNotNull(get_entity($attachment->guid));
 	}
 
 	/**
@@ -188,8 +184,9 @@ class AttachmentsTest extends IntegrationTestCase {
 		$this->assertTrue((bool) $ok);
 
 		// With delete=true the attachment entity should be gone.
+		// Elgg 5.x: get_entity() returns null (not false) when entity not found.
 		_elgg_services()->entityCache->delete($guid);
-		$this->assertFalse(get_entity($guid));
+		$this->assertFalse((bool) get_entity($guid));
 	}
 
 	/**
@@ -238,7 +235,7 @@ class AttachmentsTest extends IntegrationTestCase {
 		// today because of the case mismatch.
 		$this->assertFalse(
 			elgg_get_plugin_setting($key, 'hypeAttachments'),
-			'Current Elgg 4.x behavior: mixed-case plugin id does not resolve.'
+			'Mixed-case plugin id does not resolve — lowercase id required.'
 		);
 
 		// The plugin object itself does see the setting.
@@ -251,7 +248,7 @@ class AttachmentsTest extends IntegrationTestCase {
      * @return void
      */
     public function testEntityMenuHookRegistered(): void {
-		$registered = _elgg_services()->hooks->hasHandler('register', 'menu:entity');
+		$registered = _elgg_services()->events->hasHandler('register', 'menu:entity');
 		$this->assertTrue($registered, 'register/menu:entity hook must be registered');
 	}
 
@@ -259,7 +256,7 @@ class AttachmentsTest extends IntegrationTestCase {
      * @return void
      */
     public function testSocialMenuHookRegistered(): void {
-		$registered = _elgg_services()->hooks->hasHandler('register', 'menu:social');
+		$registered = _elgg_services()->events->hasHandler('register', 'menu:social');
 		$this->assertTrue($registered, 'register/menu:social hook must be registered');
 	}
 
@@ -267,7 +264,7 @@ class AttachmentsTest extends IntegrationTestCase {
      * @return void
      */
     public function testAllowAttachmentsHookRegistered(): void {
-		$registered = _elgg_services()->hooks->hasHandler('allow_attachments', 'all');
+		$registered = _elgg_services()->events->hasHandler('allow_attachments', 'all');
 		$this->assertTrue($registered, 'allow_attachments/all hook must be registered');
 	}
 
@@ -275,7 +272,7 @@ class AttachmentsTest extends IntegrationTestCase {
      * @return void
      */
     public function testPermissionsCheckHookRegistered(): void {
-		$registered = _elgg_services()->hooks->hasHandler('permissions_check', 'object');
+		$registered = _elgg_services()->events->hasHandler('permissions_check', 'object');
 		$this->assertTrue($registered, 'permissions_check/object hook must be registered');
 	}
 
@@ -283,7 +280,7 @@ class AttachmentsTest extends IntegrationTestCase {
      * @return void
      */
     public function testFieldsHookRegistered(): void {
-		$registered = _elgg_services()->hooks->hasHandler('fields', 'object');
+		$registered = _elgg_services()->events->hasHandler('fields', 'object');
 		$this->assertTrue($registered, 'fields/object hook must be registered');
 	}
 
@@ -307,11 +304,11 @@ class AttachmentsTest extends IntegrationTestCase {
      * @return void
      */
     public function testPermissionsAllowsAttachmentsReturnsFalseForMessagesDirectly(): void {
-		$hook = $this->getMockBuilder(Hook::class)->getMock();
-		$hook->method('getType')->willReturn('object:messages');
-		$hook->method('getValue')->willReturn(false);
+		$event = $this->getMockBuilder(Event::class)->disableOriginalConstructor()->getMock();
+		$event->method('getType')->willReturn('object:messages');
+		$event->method('getValue')->willReturn(false);
 
-		$result = Permissions::allowsAttachments($hook);
+		$result = Permissions::allowsAttachments($event);
 		$this->assertFalse((bool) $result);
 	}
 
