@@ -21,7 +21,7 @@ final class Notifications {
 		elgg_register_notification_event('object', $subtype, ['attach']);
 
 		$hook_type = "notification:attach:object:$subtype";
-		$handler = [Notifications::class, 'prepareNotification'];
+		$handler = [self::class, 'prepareNotification'];
 		elgg_unregister_event_handler('prepare', $hook_type, $handler); // remove dupe
 		elgg_register_event_handler('prepare', $hook_type, $handler);
 	}
@@ -59,5 +59,4 @@ final class Notifications {
 
 		return $notification;
 	}
-
 }

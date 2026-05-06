@@ -4,6 +4,9 @@ namespace hypeJunction\Attachments;
 
 use Elgg\Hook;
 
+/**
+ * Integrates attachments with the CMS form fields collection
+ */
 class CMS {
 
 	/**
@@ -47,7 +50,7 @@ class CMS {
 	/**
 	 * Remove attachments from profile fields
 	 *
-	 * @param Hook $hook
+	 * @param Hook $hook Hook
 	 *
 	 * @return mixed
 	 */

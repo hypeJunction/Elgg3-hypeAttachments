@@ -13,7 +13,7 @@ if (!$entity->canEdit() || !hypeapps_allow_attachments($entity->getType(), $enti
 $result = hypeapps_attach_uploaded_files($entity, 'uploads', [
 	'access_id' => $entity->access_id,
 	'container_guid' => $entity->guid,
-		]);
+]);
 
 if (empty($result)) {
 	register_error(elgg_echo('attachments:upload:empty'));

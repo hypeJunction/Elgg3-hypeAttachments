@@ -34,7 +34,7 @@ if (!elgg_extract('expand', $vars, true)) {
 
 echo elgg_format_element('div', [
 	'class' => $class,
-		], $uploads_form);
+], $uploads_form);
 
 // @todo: update in Elgg 2.2 to use elgg_require_js()
 ?>

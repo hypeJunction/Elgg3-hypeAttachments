@@ -42,5 +42,5 @@ if ($subject && $subject->canEdit()) {
 echo elgg_format_element('div', [
 	'class' => 'attachments-attached-item',
 	'title' => $entity->getDisplayName(),
-		], $output);
+], $output);
 

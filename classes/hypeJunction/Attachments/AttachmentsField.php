@@ -7,6 +7,9 @@ use ElggEntity;
 use hypeJunction\Fields\Field;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
+/**
+ * Attachments form field
+ */
 class AttachmentsField extends Field {
 
 	/**

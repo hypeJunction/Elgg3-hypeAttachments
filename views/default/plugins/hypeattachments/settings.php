@@ -21,6 +21,7 @@ foreach ($rows as $row) {
 		'label' => elgg_echo("collection:object:$subtype"),
 	]);
 }
+
 $inputs = ob_get_clean();
 
 echo elgg_view('elements/forms/field', [

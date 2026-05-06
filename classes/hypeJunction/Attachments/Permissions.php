@@ -10,10 +10,7 @@ final class Permissions {
 	/**
 	 * Check if attachments are allowed for this type by plugin settings
 	 *
-	 * @param string $hook   "allow_attachments"
-	 * @param string $type   "<entity_type>:<entity_subtype>"
-	 * @param bool   $return If allowed
-	 * @param array  $params Hook params
+	 * @param \Elgg\Event $event Event
 	 * @return bool
 	 */
 	public static function allowsAttachments(\Elgg\Event $event) {
@@ -34,10 +31,7 @@ final class Permissions {
 	/**
 	 * Message attachments can not be changed
 	 *
-	 * @param string $hook   "permissions_check"
-	 * @param string $type   "object"
-	 * @param bool   $return Permission
-	 * @param array  $params Hook params
+	 * @param \Elgg\Event $event Event
 	 * @return bool
 	 */
 	public static function protectMessageAttachments(\Elgg\Event $event) {

@@ -23,6 +23,6 @@ $link = elgg_view('output/url', [
 		'maxWidth' => '600px',
 		'maxHeight' => '400px',
 	]),
-		]);
+]);
 ?>
 <div class="elgg-listing-summary-subtitle elgg-subtext"><?= $link ?></div>

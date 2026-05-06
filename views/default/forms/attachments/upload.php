@@ -9,6 +9,7 @@ $entity = elgg_extract('entity', $vars);
 if (!$entity) {
 	return;
 }
+
 echo elgg_view('input/hidden', [
 	'name' => 'guid',
 	'value' => $entity->guid,

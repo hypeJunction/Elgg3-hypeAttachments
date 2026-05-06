@@ -14,9 +14,7 @@ final class Events {
 	/**
 	 * Add attachments when comment/discussion reply is saved
 	 *
-	 * @param string     $event  "create"|"update"
-	 * @param string     $type   "object"
-	 * @param ElggEntity $entity Entity
+	 * @param \Elgg\Event $event Event
 	 *
 	 * @return void
 	 */
@@ -42,9 +40,7 @@ final class Events {
 	/**
 	 * Add attachments when message is saved
 	 *
-	 * @param string     $event  "create"|"update"
-	 * @param string     $type   "object"
-	 * @param ElggEntity $entity Entity
+	 * @param \Elgg\Event $event Event
 	 *
 	 * @return void
 	 */
@@ -87,9 +83,7 @@ final class Events {
 	/**
 	 * Update attachment access to match that of the subject
 	 *
-	 * @param string     $event  'update:after'
-	 * @param string     $type   'object'
-	 * @param ElggEntity $entity The updated entity
+	 * @param \Elgg\Event $event Event
 	 *
 	 * @return void
 	 */
@@ -128,5 +122,4 @@ final class Events {
 
 		elgg_set_ignore_access($ia);
 	}
-
 }

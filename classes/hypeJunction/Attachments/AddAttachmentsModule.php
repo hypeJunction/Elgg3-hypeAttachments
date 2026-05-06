@@ -2,6 +2,9 @@
 
 namespace hypeJunction\Attachments;
 
+/**
+ * Registers the attachments module on entity views
+ */
 class AddAttachmentsModule {
 
 	/**

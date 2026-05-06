@@ -13,10 +13,7 @@ final class Menus {
 	/**
 	 * Setup entity menu
 	 *
-	 * @param string         $hook   "register"
-	 * @param string         $type   "menu:entity"
-	 * @param ElggMenuItem[] $return Menu
-	 * @param array          $params Hook params
+	 * @param \Elgg\Event $event Event
 	 *
 	 * @return ElggMenuItem[]
 	 */
@@ -91,10 +88,7 @@ final class Menus {
 	/**
 	 * Setup social menu
 	 *
-	 * @param string         $hook   "register"
-	 * @param string         $type   "menu:social"
-	 * @param ElggMenuItem[] $return Menu
-	 * @param array          $params Hook params
+	 * @param \Elgg\Event $event Event
 	 *
 	 * @return ElggMenuItem[]
 	 */

@@ -6,6 +6,9 @@ use Elgg\Event;
 use hypeJunction\Fields\Collection;
 use InvalidParameterException;
 
+/**
+ * Adds the attachments field to a form fields collection
+ */
 class AddFormField {
 
 	/**

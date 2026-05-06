@@ -19,9 +19,9 @@ elgg_push_breadcrumb($title);
 
 $content = elgg_view_form('attachments/upload', [
 	'enctype' => 'multipart/form-data',
-		], [
+], [
 	'entity' => $entity,
-		]);
+]);
 
 if (elgg_is_xhr()) {
 	echo elgg_view_module('aside', $title, $content);
