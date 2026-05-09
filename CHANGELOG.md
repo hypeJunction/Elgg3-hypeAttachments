@@ -1,3 +1,13 @@
+## [6.0.0] — Elgg 6.x migration (2026-05-09)
+
+- Migrated to Elgg 6.x (5.x → 6.x). Requires PHP 8.2+.
+- Bumped `elgg/elgg` constraint to `^6.0`.
+- AMD JS removed: all 3 JS modules converted from AMD `define()` to ES modules.
+- Inline `<script>require([...]);</script>` calls in PHP views replaced with `elgg_import_esm()`.
+- Docker stack upgraded to Elgg 6.x, MySQL 8.0, PHPUnit ~10.5, Playwright 1.59.
+
+---
+
 <a name="5.0.0"></a>
 ## [5.0.0] — Elgg 5.x migration (2026-04-20)
 

@@ -31,6 +31,5 @@ $options = [
 $list_options = (array) elgg_extract('list_options', $vars, []);
 
 echo elgg_view_entity_list($attachments, array_merge($options, $list_options));
-?>
 
-<script>require(['output/attachments']);</script>
+elgg_import_esm('js/output/attachments');

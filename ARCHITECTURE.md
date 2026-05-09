@@ -1,4 +1,4 @@
-# hypeAttachments — Architecture (Elgg 5.x)
+# hypeAttachments — Architecture (Elgg 6.x)
 
 ## Summary
 

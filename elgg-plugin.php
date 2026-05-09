@@ -8,7 +8,7 @@ return [
 	'plugin' => [
 		'name' => 'hypeAttachments',
 		'description' => 'File attachments for Elgg',
-		'version' => '5.0.0',
+		'version' => '6.0.0',
 		'dependencies' => [
 			'file' => [],
 			'hypeDropzone' => [

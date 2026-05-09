@@ -28,4 +28,4 @@ echo elgg_view('input/hidden', [
 	]);
 	?>
 </div>
-<script>require(['forms/attachments/upload']);</script>
+<?php elgg_import_esm('js/forms/attachments/upload'); ?>
