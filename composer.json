@@ -4,7 +4,10 @@
 	"description": "File attachments for Elgg",
 	"homepage": "http://hypejunction.com",
 	"keywords": [
-		"elgg", "plugin", "files", "attachments"
+		"elgg",
+		"plugin",
+		"files",
+		"attachments"
 	],
 	"license": "proprietary",
 	"authors": [
@@ -18,7 +21,7 @@
 	},
 	"require": {
 		"php": ">=5.5",
-		"composer/installers": "~1.0",
+		"composer/installers": "^1.0 || ^2.0",
 		"hypejunction/acl_builder_api": "~1.0"
 	},
 	"autoload": {
@@ -27,4 +30,3 @@
 		}
 	}
 }
-
