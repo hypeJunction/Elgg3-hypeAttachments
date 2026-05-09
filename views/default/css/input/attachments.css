@@ -1,3 +1,9 @@
+:root {
+	--attachments-dropzone-margin-bottom: 5px;
+	--attachments-detach-padding: 3px;
+	--attachments-detach-bg: white;
+}
+
 .attachments-show .attachments-fieldset {
 	display: block !important;
 }
@@ -8,7 +14,7 @@
 	float: left;
 }
 .attachments-fieldset .elgg-dropzone {
-	margin-bottom: 5px;
+	margin-bottom: var(--attachments-dropzone-margin-bottom);
 }
 .attachments-attached-item {
 	position: relative;
@@ -18,8 +24,8 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	padding: 3px;
-	background: white;
+	padding: var(--attachments-detach-padding);
+	background: var(--attachments-detach-bg);
 }
 .attachments-attached-item:hover .attachments-detach-action {
 	display: block;
