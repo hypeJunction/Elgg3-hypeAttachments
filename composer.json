@@ -2,7 +2,7 @@
 	"name": "hypejunction/hypeattachments",
 	"type": "elgg-plugin",
 	"description": "File attachments for Elgg",
-	"homepage": "http://hypejunction.com",
+	"homepage": "https://github.com/hypeJunction/Elgg3-hypeAttachments",
 	"keywords": [
 		"elgg",
 		"plugin",
@@ -13,7 +13,7 @@
 	"authors": [
 		{
 			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
+			"email": "ismayil.khayredinov@gmail.com"
 		}
 	],
 	"extra": {

@@ -1,7 +1,7 @@
 {
 	"name": "hypeAttachments",
 	"version": "3.1.2",
-	"license": "SEE LICENSE IN https://hypejunction.com/license",
+	"license": "SEE LICENSE IN https://github.com/hypeJunction/Elgg3-hypeAttachments",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:hypeJunction/Elgg3-hypeAttachments.git",
