@@ -1,6 +1,6 @@
 Attachments for Elgg
 ====================
-![Elgg 5.x](https://img.shields.io/badge/Elgg-5.x-orange.svg?style=flat-square)
+![Elgg 7.x](https://img.shields.io/badge/Elgg-7.x-orange.svg?style=flat-square)
 
 ## Features
 
@@ -72,3 +72,9 @@ echo elgg_view('output/attachments', [
 ## Acknowledgements
 
  * Early version of the plugin development has been partially sponsored by [Social Business World](https://socialbusinessworld.org/)
+
+## Compatibility
+
+| Plugin version | Elgg version |
+|---|---|
+| current | 7.x |
