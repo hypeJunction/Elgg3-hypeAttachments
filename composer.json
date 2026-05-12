@@ -1,41 +1,41 @@
 {
-    "name": "hypejunction/hypeattachments",
-    "type": "elgg-plugin",
-    "description": "File attachments for Elgg",
-    "homepage": "https://github.com/hypeJunction/Elgg3-hypeAttachments",
-    "keywords": [
-        "elgg",
-        "plugin",
-        "files",
-        "attachments"
-    ],
-    "license": "GPL-2.0-or-later",
-    "authors": [
-        {
-            "name": "Ismayil Khayredinov",
-            "email": "ismayil.khayredinov@gmail.com"
-        }
-    ],
-    "extra": {
-        "installer-name": "hypeattachments",
-        "elgg-plugin": {
-            "id": "hypeattachments"
-        }
-    },
-    "require": {
-        "php": ">=8.2",
-        "elgg/elgg": "^6.0",
-        "composer/installers": "^2.0",
-        "hypejunction/acl_builder_api": "~1.0"
-    },
-    "config": {
-        "allow-plugins": {
-            "composer/installers": true
-        }
-    },
-    "autoload": {
-        "psr-0": {
-            "": "classes/"
-        }
-    }
+	"name": "hypejunction/hypeattachments",
+	"type": "elgg-plugin",
+	"description": "File attachments for Elgg",
+	"homepage": "https://github.com/hypeJunction/Elgg3-hypeAttachments",
+	"keywords": [
+		"elgg",
+		"plugin",
+		"files",
+		"attachments"
+	],
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Ismayil Khayredinov",
+			"email": "ismayil.khayredinov@gmail.com"
+		}
+	],
+	"extra": {
+		"installer-name": "hypeattachments",
+		"elgg-plugin": {
+			"id": "hypeattachments"
+		}
+	},
+	"require": {
+		"php": ">=8.1",
+		"elgg/elgg": "^6.0",
+		"composer/installers": "^2.0",
+		"hypejunction/acl_builder_api": "~1.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	},
+	"autoload": {
+		"psr-0": {
+			"": "classes/"
+		}
+	}
 }
