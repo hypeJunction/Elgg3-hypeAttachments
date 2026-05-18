@@ -1,41 +1,44 @@
 {
-	"name": "hypejunction/hypeattachments",
-	"type": "elgg-plugin",
-	"description": "File attachments for Elgg",
-	"homepage": "http://hypejunction.com",
-	"keywords": [
-		"elgg",
-		"plugin",
-		"files",
-		"attachments"
-	],
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
-		}
-	],
-	"extra": {
-		"installer-name": "hypeattachments",
-		"elgg-plugin": {
-			"id": "hypeattachments"
-		}
-	},
-	"require": {
-		"php": ">=7.4",
-		"elgg/elgg": "^4.0",
-		"composer/installers": "^2.0",
-		"hypejunction/acl_builder_api": "~1.0"
-	},
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true
-		}
-	},
-	"autoload": {
-		"psr-0": {
-			"": "classes/"
-		}
-	}
+    "name": "hypejunction/hypeattachments",
+    "type": "elgg-plugin",
+    "description": "File attachments for Elgg",
+    "homepage": "http://hypejunction.com",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "files",
+        "attachments"
+    ],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Ismayil Khayredinov",
+            "email": "info@hypejunction.com"
+        }
+    ],
+    "extra": {
+        "installer-name": "hypeattachments",
+        "elgg-plugin": {
+            "id": "hypeattachments"
+        }
+    },
+    "require": {
+        "php": ">=7.4",
+        "elgg/elgg": "^4.0",
+        "composer/installers": "^2.0",
+        "hypejunction/acl_builder_api": "~1.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "autoload": {
+        "psr-0": {
+            "": "classes/"
+        },
+        "files": [
+            "lib/functions.php"
+        ]
+    }
 }
