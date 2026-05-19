@@ -41,6 +41,5 @@
         "files": [
             "lib/functions.php"
         ]
-    },
-    "version": "5.0.0"
+    }
 }
