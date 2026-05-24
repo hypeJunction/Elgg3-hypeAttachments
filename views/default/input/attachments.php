@@ -37,4 +37,4 @@ echo elgg_format_element('div', [
 ], $uploads_form);
 
 elgg_import_esm('js/input/attachments');
-?>
+
