@@ -16,7 +16,7 @@ class AttachmentsField extends Field {
 	 * {@inheritdoc}
 	 */
 	public function raw(Request $request, ElggEntity $entity) {
-		return elgg_get_uploaded_files($this->name);
+		return \elgg_get_uploaded_files($this->name);
 	}
 
 	/**

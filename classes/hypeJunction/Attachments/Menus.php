@@ -43,19 +43,19 @@ final class Menus {
 			if ($entity->container_guid == $subject->guid) {
 				// Attachment has been made when the entity was created, so it can be deleted
 				$delete = true;
-				$title = elgg_echo('delete');
+				$title = \elgg_echo('delete');
 				$icon = 'delete';
 			} else {
 				// Attachment has been added externally, do not delete it
 				$delete = false;
-				$title = elgg_echo('attachments:detach');
+				$title = \elgg_echo('attachments:detach');
 				$icon = 'chain-broken';
 			}
 
 			$return[] = ElggMenuItem::factory([
 				'name' => 'delete',
 				'text' => $title,
-				'href' => elgg_generate_action_url('attachments/detach', [
+				'href' => \elgg_generate_action_url('attachments/detach', [
 					'guid' => $subject->guid,
 					'attachment_guid' => $entity->guid,
 					'delete' => $delete,
@@ -71,8 +71,8 @@ final class Menus {
 		if (hypeapps_allow_attachments($entity->type, $entity->getSubtype())) {
 			$return[] = ElggMenuItem::factory([
 				'name' => 'attach',
-				'text' => elgg_echo('attachments:upload'),
-				'href' => elgg_generate_url('attachments:upload', ['guid' => $entity->guid]),
+				'text' => \elgg_echo('attachments:upload'),
+				'href' => \elgg_generate_url('attachments:upload', ['guid' => $entity->guid]),
 				'link_class' => 'elgg-lightbox',
 				'data-colorbox-opts' => json_encode([
 					'maxWidth' => '600px',
@@ -112,7 +112,7 @@ final class Menus {
 			'badge' => $count,
 			'text' => '',
 			'icon' => 'paperclip',
-			'href' => elgg_generate_url('attachments:view', ['guid' => $entity->guid]),
+			'href' => \elgg_generate_url('attachments:view', ['guid' => $entity->guid]),
 			'class' => 'elgg-lightbox',
 			'priority' => 900,
 		]);
