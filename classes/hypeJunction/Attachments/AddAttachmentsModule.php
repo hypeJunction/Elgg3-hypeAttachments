@@ -26,7 +26,7 @@ class AddAttachmentsModule {
 				'position' => 'sidebar',
 				'priority' => 300,
 				'view' => 'post/modules/attachments',
-				'label' => elgg_echo('attachments:title'),
+				'label' => \elgg_echo('attachments:title'),
 			];
 		}
 
