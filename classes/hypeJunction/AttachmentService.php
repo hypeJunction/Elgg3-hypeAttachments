@@ -75,7 +75,7 @@ class AttachmentService
      */
     protected function getUploadedFiles($input_name)
     {
-        $file_bag = _elgg_services()->request->files;
+        $file_bag = \_elgg_services()->request->files;
         if (!$file_bag->has($input_name)) {
             return false;
         }
@@ -107,7 +107,7 @@ class AttachmentService
             }
             $file = new ElggFile();
             $file->setSubtype('file');
-            $file->owner_guid = elgg_get_logged_in_user_guid();
+            $file->owner_guid = \elgg_get_logged_in_user_guid();
             $old_filestorename = '';
             if ($file->exists()) {
                 $old_filestorename = $file->getFilenameOnFilestore();
@@ -120,17 +120,17 @@ class AttachmentService
             $file->upload_time = time();
             $prefix = $file->filestore_prefix ?: 'file';
             $prefix = trim($prefix, '/');
-            $filename = elgg_strtolower("{$prefix}/{$file->upload_time}{$file->originalfilename}");
+            $filename = \elgg_strtolower("{$prefix}/{$file->upload_time}{$file->originalfilename}");
             $file->setFilename($filename);
             $file->filestore_prefix = $prefix;
             $hook_params = ['file' => $file, 'upload' => $upload];
-            $uploaded = _elgg_services()->hooks->trigger('upload', 'file', $hook_params);
+            $uploaded = \_elgg_services()->hooks->trigger('upload', 'file', $hook_params);
             if ($uploaded !== true && $uploaded !== false) {
                 $filestorename = $file->getFilenameOnFilestore();
                 try {
                     $uploaded = $upload->move(pathinfo($filestorename, PATHINFO_DIRNAME), pathinfo($filestorename, PATHINFO_BASENAME));
                 } catch (FileException $ex) {
-                    elgg_log($ex->getMessage(), 'ERROR');
+                    \elgg_log($ex->getMessage(), 'ERROR');
                     $uploaded = false;
                 }
             }
@@ -143,8 +143,8 @@ class AttachmentService
             }
             $mime_type = $file->detectMimeType(null, $upload->getClientMimeType());
             $file->setMimeType($mime_type);
-            $file->simpletype = elgg_get_file_simple_type($mime_type);
-            elgg_trigger_after_event('upload', 'file', $file);
+            $file->simpletype = \elgg_get_file_simple_type($mime_type);
+            \elgg_trigger_after_event('upload', 'file', $file);
             if (!$file->save() || !$file->exists()) {
                 $file->delete();
                 continue;
@@ -199,7 +199,7 @@ class AttachmentService
     public function getAttachments(ElggEntity $entity, array $options = [])
     {
         $options = $this->getAttachmentsFilterOptions($entity, $options);
-        $attachments = elgg_get_entities($options);
+        $attachments = \elgg_get_entities($options);
         if (is_array($attachments)) {
             foreach ($attachments as $attachment) {
                 $attachment->setVolatileData('attachment_subject', $entity->guid);

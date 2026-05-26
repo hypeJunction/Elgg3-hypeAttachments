@@ -26,7 +26,7 @@ final class Permissions {
 			return false;
 		}
 		
-		if ((bool) elgg_get_plugin_setting("$entity_type:$entity_subtype", 'hypeattachments')) {
+		if ((bool) \elgg_get_plugin_setting("$entity_type:$entity_subtype", 'hypeattachments')) {
 			return true;
 		}
 	}
@@ -44,9 +44,9 @@ final class Permissions {
 
 		$entity = $hook->getParam('entity');
 
-		$ia = elgg_set_ignore_access(true);
+		$ia = \elgg_set_ignore_access(true);
 
-		$messages = elgg_get_entities([
+		$messages = \elgg_get_entities([
 			'types' => 'object',
 			'subtypes' => 'messages',
 			'relationship' => 'attached',
@@ -55,7 +55,7 @@ final class Permissions {
 			'count' => true,
 		]);
 
-		elgg_set_ignore_access($ia);
+		\elgg_set_ignore_access($ia);
 
 		if ($messages > 1) {
 			// if this entity is attached to more than 1 message,

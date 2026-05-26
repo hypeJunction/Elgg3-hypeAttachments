@@ -27,7 +27,7 @@ class CMS {
 			'#section' => 'content',
 			'#priority' => 700,
 			'#input' => function(Request $request) {
-				return elgg_get_uploaded_files('attachments');
+				return \elgg_get_uploaded_files('attachments');
 			},
 			'#getter' => function(\ElggEntity $entity) {
 				return hypeapps_get_attachments($entity);
@@ -56,7 +56,7 @@ class CMS {
 		$fields = $hook->getValue();
 
 		foreach ($fields as $key => $field) {
-			$name = elgg_extract('name', $field);
+			$name = \elgg_extract('name', $field);
 			if ($name == 'attachments') {
 				unset($fields[$key]);
 			}
