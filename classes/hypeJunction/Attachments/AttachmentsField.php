@@ -48,7 +48,7 @@ class AttachmentsField extends Field {
 	 * {@inheritdoc}
 	 */
 	public function isVisible(ElggEntity $entity, $context = null) {
-		if (!hypeapps_allow_attachments($entity->type, $entity->subtype)) {
+		if (!\hypeapps_allow_attachments($entity->type, $entity->subtype)) {
 			return false;
 		}
 

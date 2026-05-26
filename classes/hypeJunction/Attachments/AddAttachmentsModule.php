@@ -20,7 +20,7 @@ class AddAttachmentsModule {
 		$value = $event->getValue();
 
 
-		if (hypeapps_allow_attachments($entity->type, $entity->subtype)) {
+		if (\hypeapps_allow_attachments($entity->type, $entity->subtype)) {
 			$value['attachments'] = [
 				'enabled' => true,
 				'position' => 'sidebar',

@@ -19,7 +19,7 @@ class CMS {
 
 		$entity = $hook->getEntityParam();
 
-		if (!$entity || !hypeapps_allow_attachments($entity->type, $entity->subtype)) {
+		if (!$entity || !\hypeapps_allow_attachments($entity->type, $entity->subtype)) {
 			return;
 		}
 

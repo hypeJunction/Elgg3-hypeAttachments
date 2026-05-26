@@ -68,7 +68,7 @@ final class Menus {
 			]);
 		}
 
-		if (hypeapps_allow_attachments($entity->type, $entity->getSubtype())) {
+		if (\hypeapps_allow_attachments($entity->type, $entity->getSubtype())) {
 			$return[] = ElggMenuItem::factory([
 				'name' => 'attach',
 				'text' => \elgg_echo('attachments:upload'),
@@ -98,7 +98,7 @@ final class Menus {
 
 		$entity = $event->getParam('entity');
 
-		if (!hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
+		if (!\hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
 			return;
 		}
 
