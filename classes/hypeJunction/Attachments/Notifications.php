@@ -35,7 +35,12 @@ final class Notifications {
 	 * @param array        $params       Hook parameters
 	 * @return Notification
 	 */
-	public static function prepareNotification($hook, $type, $notification, $params) {
+	public static function prepareNotification($hook, $type = null, $notification = null, $params = null) {
+		if ($hook instanceof \Elgg\Hook) {
+			$type = $hook->getType();
+			$notification = $hook->getValue();
+			$params = $hook->getParams();
+		}
 
 		$entity = $params['event']->getObject();
 		$actor = $params['event']->getActor();
