@@ -60,28 +60,25 @@ final class Events {
 		$ids = array_merge([$event->getObject()->toId], (array) $event->getObject()->fromId);
 		$acl_id = \hypeJunction\Access\Collection::create($ids)->getCollectionId();
 
-		$ia = \elgg_set_ignore_access(true);
+		\elgg_call(ELGG_IGNORE_ACCESS, function() use ($event, $acl_id, &$attachments) {
+			if (!isset($attachments)) {
+				$attachments = hypeapps_attach_uploaded_files($event->getObject(), 'message_attachments', [
+					'access_id' => $acl_id,
+					'owner_guid' => $event->getObject()->fromId,
+					'container_guid' => $event->getObject()->fromId,
+				]);
 
-		if (!isset($attachments)) {
-			$attachments = hypeapps_attach_uploaded_files($event->getObject(), 'message_attachments', [
-				'access_id' => $acl_id,
-				'owner_guid' => $event->getObject()->fromId,
-				'container_guid' => $event->getObject()->fromId,
-			]);
-
-			if ($attachments) {
+				if ($attachments) {
+					foreach ($attachments as $attachment) {
+						$attachment->origin = 'attachments';
+					}
+				}
+			} else if (!empty($attachments)) {
 				foreach ($attachments as $attachment) {
-					$attachment->origin = 'attachments';
+					hypeapps_attach($event->getObject(), $attachment);
 				}
 			}
-		} else if (!empty($attachments)) {
-			foreach ($attachments as $attachment) {
-				hypeapps_attach($event->getObject(), $attachment);
-			}
-		}
-
-
-		\elgg_set_ignore_access($ia);
+		});
 	}
 
 	/**
@@ -99,34 +96,33 @@ final class Events {
 			return;
 		}
 
-		$ia = \elgg_set_ignore_access(true);
-		$options = [
-			'type' => 'object',
-			'subtype' => 'file',
-			'container_guid' => $entity->guid, // uploaded attachments are contained by the entity
-			'metadata_name_value_pairs' => [
-				[
-					'name' => 'origin',
-					'value' => 'attachments',
+		\elgg_call(ELGG_IGNORE_ACCESS, function() use ($entity) {
+			$options = [
+				'type' => 'object',
+				'subtype' => 'file',
+				'container_guid' => $entity->guid, // uploaded attachments are contained by the entity
+				'metadata_name_value_pairs' => [
+					[
+						'name' => 'origin',
+						'value' => 'attachments',
+					],
 				],
-			],
-			'wheres' => [
-				function(QueryBuilder $qb) use ($entity) {
-					return $qb->compare('e.access_id', '!=', (int) $entity->access_id, ELGG_VALUE_INTEGER);
-				}
-			],
-			'limit' => 0,
-			'batch' => true,
-		];
+				'wheres' => [
+					function(QueryBuilder $qb) use ($entity) {
+						return $qb->compare('e.access_id', '!=', (int) $entity->access_id, ELGG_VALUE_INTEGER);
+					}
+				],
+				'limit' => 0,
+				'batch' => true,
+			];
 
-		$attachments = \elgg_get_entities($options);
-		foreach ($attachments as $attachment) {
-			// Update comment access_id
-			$attachment->access_id = $entity->access_id;
-			$attachment->save();
-		}
-
-		\elgg_set_ignore_access($ia);
+			$attachments = \elgg_get_entities($options);
+			foreach ($attachments as $attachment) {
+				// Update comment access_id
+				$attachment->access_id = $entity->access_id;
+				$attachment->save();
+			}
+		});
 	}
 
 }

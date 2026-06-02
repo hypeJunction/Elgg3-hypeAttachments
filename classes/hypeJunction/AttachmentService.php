@@ -143,7 +143,7 @@ class AttachmentService
             }
             $mime_type = $file->detectMimeType(null, $upload->getClientMimeType());
             $file->setMimeType($mime_type);
-            $file->simpletype = \elgg_get_file_simple_type($mime_type);
+            $file->simpletype = _elgg_services()->mimetype->getSimpleType($mime_type);
             \elgg_trigger_after_event('upload', 'file', $file);
             if (!$file->save() || !$file->exists()) {
                 $file->delete();

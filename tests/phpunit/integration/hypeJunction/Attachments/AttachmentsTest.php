@@ -237,7 +237,7 @@ class AttachmentsTest extends IntegrationTestCase {
 		// The helper reads with literal 'hypeAttachments' — returns false
 		// today because of the case mismatch.
 		$this->assertFalse(
-			\elgg_get_plugin_setting($key, 'hypeAttachments'),
+			\elgg_get_plugin_setting($key, 'hypeattachments'),
 			'Current Elgg 4.x behavior: mixed-case plugin id does not resolve.'
 		);
 
