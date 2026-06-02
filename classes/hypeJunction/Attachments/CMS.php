@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Attachments;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 /**
  * Integrates attachments with the CMS form fields collection
@@ -12,18 +12,18 @@ class CMS {
 	/**
 	 * Add attachment field to CMS form
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 * @return array
 	 */
-	public static function addAttachmentField(Hook $hook) {
+	public static function addAttachmentField(Event $event) {
 
-		$entity = $hook->getEntityParam();
+		$entity = $event->getEntityParam();
 
 		if (!$entity || !hypeapps_allow_attachments($entity->type, $entity->subtype)) {
 			return;
 		}
 
-		$fields = $hook->getValue();
+		$fields = $event->getValue();
 
 		$fields['attachments'] = [
 			'#type' => 'attachments',
@@ -50,13 +50,13 @@ class CMS {
 	/**
 	 * Remove attachments from profile fields
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return mixed
 	 */
-	public static function filterProfileFields(Hook $hook) {
+	public static function filterProfileFields(Event $event) {
 
-		$fields = $hook->getValue();
+		$fields = $event->getValue();
 
 		foreach ($fields as $key => $field) {
 			$name = \elgg_extract('name', $field);
