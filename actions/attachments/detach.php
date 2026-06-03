@@ -13,7 +13,7 @@ if ($entity
 		&& $attachment
 		&& hypeapps_detach($entity, $attachment, $delete)
 	) {
-	system_message(elgg_echo('attachments:detach:success'));
+	elgg_register_success_message(elgg_echo('attachments:detach:success'));
 } else {
-	register_error(elgg_echo('attachments:detach:error'));
+	elgg_register_error_message(elgg_echo('attachments:detach:error'));
 }
