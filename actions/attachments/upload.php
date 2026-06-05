@@ -6,7 +6,7 @@ elgg_entity_gatekeeper($guid);
 $entity = get_entity($guid);
 
 if (!$entity->canEdit() || !hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
-	register_error(elgg_echo('actionnotauthorized'));
+	elgg_register_error_message(elgg_echo('actionnotauthorized'));
 	return elgg_redirect_response(REFERRER);
 }
 
@@ -16,9 +16,9 @@ $result = hypeapps_attach_uploaded_files($entity, 'uploads', [
 ]);
 
 if (empty($result)) {
-	register_error(elgg_echo('attachments:upload:empty'));
+	elgg_register_error_message(elgg_echo('attachments:upload:empty'));
 } else {
-	system_message(elgg_echo('attachments:upload:success', [count($result)]));
+	elgg_register_success_message(elgg_echo('attachments:upload:success', [count($result)]));
 
 	$attachments = [];
 	foreach ($result as $attachment) {
