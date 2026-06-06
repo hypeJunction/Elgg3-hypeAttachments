@@ -38,7 +38,7 @@ final class Permissions {
 
 		$entity = $event->getParam('entity');
 
-		$ia = \elgg_set_ignore_access(true);
+		$ia = _elgg_services()->session_manager->setIgnoreAccess(true);
 
 		$messages = \elgg_get_entities([
 			'types' => 'object',
@@ -49,7 +49,7 @@ final class Permissions {
 			'count' => true,
 		]);
 
-		\elgg_set_ignore_access($ia);
+		_elgg_services()->session_manager->setIgnoreAccess($ia);
 
 		if ($messages > 1) {
 			// if this entity is attached to more than 1 message,

@@ -56,7 +56,7 @@ final class Events {
 		$ids = array_merge([$event->getObject()->toId], (array) $event->getObject()->fromId);
 		$acl_id = \hypeJunction\Access\Collection::create($ids)->getCollectionId();
 
-		$ia = \elgg_set_ignore_access(true);
+		$ia = _elgg_services()->session_manager->setIgnoreAccess(true);
 
 		if (!isset($attachments)) {
 			$attachments = hypeapps_attach_uploaded_files($event->getObject(), 'message_attachments', [
@@ -77,7 +77,7 @@ final class Events {
 		}
 
 
-		\elgg_set_ignore_access($ia);
+		_elgg_services()->session_manager->setIgnoreAccess($ia);
 	}
 
 	/**
@@ -93,7 +93,7 @@ final class Events {
 			return;
 		}
 
-		$ia = \elgg_set_ignore_access(true);
+		$ia = _elgg_services()->session_manager->setIgnoreAccess(true);
 		$options = [
 			'type' => 'object',
 			'subtype' => 'file',
@@ -120,6 +120,6 @@ final class Events {
 			$attachment->save();
 		}
 
-		\elgg_set_ignore_access($ia);
+		_elgg_services()->session_manager->setIgnoreAccess($ia);
 	}
 }
