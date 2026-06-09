@@ -1,9 +1,7 @@
 <?php
 
-$guid = elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid);
-
-$entity = get_entity($guid);
+$guid = (int) elgg_extract('guid', $vars);
+$entity = elgg_entity_gatekeeper($guid);
 
 elgg_set_page_owner_guid($entity->container_guid);
 

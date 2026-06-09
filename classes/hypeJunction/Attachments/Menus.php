@@ -28,7 +28,7 @@ final class Menus {
 		}
 
 		$subject_guid = $entity->getVolatileData('attachment_subject');
-		$subject = get_entity($subject_guid);
+		$subject = $subject_guid ? get_entity((int) $subject_guid) : null;
 
 		if ($subject instanceof ElggEntity) {
 			$priority = 900;

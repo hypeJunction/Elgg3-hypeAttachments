@@ -1,9 +1,7 @@
 <?php
 
-$guid = get_input('guid');
-elgg_entity_gatekeeper($guid);
-
-$entity = get_entity($guid);
+$guid = (int) get_input('guid');
+$entity = elgg_entity_gatekeeper($guid);
 
 if (!$entity->canEdit() || !hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
 	elgg_register_error_message(elgg_echo('actionnotauthorized'));

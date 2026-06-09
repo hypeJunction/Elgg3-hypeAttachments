@@ -4,8 +4,6 @@ use hypeJunction\Attachments\Events;
 use hypeJunction\Attachments\Menus;
 use hypeJunction\Attachments\Permissions;
 
-require_once __DIR__ . '/lib/functions.php';
-
 return [
 	'plugin' => [
 		'name' => 'hypeAttachments',

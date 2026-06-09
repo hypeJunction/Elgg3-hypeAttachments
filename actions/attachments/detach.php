@@ -1,10 +1,10 @@
 <?php
 
 $guid = get_input('guid');
-$entity = get_entity($guid);
+$entity = $guid ? get_entity((int) $guid) : null;
 
 $attachment_guid = get_input('attachment_guid');
-$attachment = get_entity($attachment_guid);
+$attachment = $attachment_guid ? get_entity((int) $attachment_guid) : null;
 
 $delete = get_input('delete', false);
 

@@ -14,7 +14,7 @@ $size = elgg_extract('size', $vars, 'medium');
 $output = elgg_view_entity_icon($entity, $size);
 
 $subject_guid = $entity->getVolatileData('attachment_subject');
-$subject = get_entity($subject_guid);
+$subject = $subject_guid ? get_entity((int) $subject_guid) : null;
 
 if ($subject && $subject->canEdit()) {
 	if ($entity->container_guid == $subject->guid) {
