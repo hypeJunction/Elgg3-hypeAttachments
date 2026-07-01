@@ -2,10 +2,8 @@
 
 elgg_gatekeeper();
 
-$guid = elgg_extract('guid', $vars);
-elgg_entity_gatekeeper($guid);
-
-$entity = get_entity($guid);
+$guid = (int) elgg_extract('guid', $vars);
+$entity = elgg_entity_gatekeeper($guid);
 if (!$entity->canEdit() || !hypeapps_allow_attachments($entity->getType(), $entity->getSubtype())) {
 	throw new \Elgg\Exceptions\HttpException(elgg_echo('actionnotauthorized'), ELGG_HTTP_FORBIDDEN);
 }

@@ -58,7 +58,7 @@ class AttachmentService {
 		}
 
 		foreach ($upload_guids as $upload_guid) {
-			$upload = get_entity($upload_guid);
+			$upload = $upload_guid ? get_entity((int) $upload_guid) : null;
 			if (!$upload) {
 				continue;
 			}
@@ -138,13 +138,13 @@ class AttachmentService {
 			$file->setFilename($filename);
 			$file->filestore_prefix = $prefix;
 			$hook_params = ['file' => $file, 'upload' => $upload];
-			$uploaded = _elgg_services()->hooks->trigger('upload', 'file', $hook_params);
+			$uploaded = _elgg_services()->events->triggerResults('upload', 'file', $hook_params);
 			if ($uploaded !== true && $uploaded !== false) {
 				$filestorename = $file->getFilenameOnFilestore();
 				try {
 					$uploaded = $upload->move(pathinfo($filestorename, PATHINFO_DIRNAME), pathinfo($filestorename, PATHINFO_BASENAME));
 				} catch (FileException $ex) {
-					elgg_log($ex->getMessage(), 'ERROR');
+					elgg_log($ex->getMessage(), 'error');
 					$uploaded = false;
 				}
 			}
@@ -158,9 +158,9 @@ class AttachmentService {
 				unlink($old_filestorename);
 			}
 
-			$mime_type = $file->detectMimeType(null, $upload->getClientMimeType());
+			$mime_type = $file->getMimeType() ?: $upload->getClientMimeType();
 			$file->setMimeType($mime_type);
-			$file->simpletype = elgg_get_file_simple_type($mime_type);
+			$file->simpletype = _elgg_services()->mimetype->getSimpleType($mime_type);
 			elgg_trigger_after_event('upload', 'file', $file);
 			if (!$file->save() || !$file->exists()) {
 				$file->delete();

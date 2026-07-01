@@ -38,18 +38,16 @@ final class Permissions {
 
 		$entity = $event->getParam('entity');
 
-		$ia = elgg_set_ignore_access(true);
-
-		$messages = elgg_get_entities([
-			'types' => 'object',
-			'subtypes' => 'messages',
-			'relationship' => 'attached',
-			'relationship_guid' => (int) $entity->guid,
-			'inverse_relationship' => true,
-			'count' => true,
-		]);
-
-		elgg_set_ignore_access($ia);
+		$messages = elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity) {
+			return elgg_get_entities([
+				'types' => 'object',
+				'subtypes' => 'messages',
+				'relationship' => 'attached',
+				'relationship_guid' => (int) $entity->guid,
+				'inverse_relationship' => true,
+				'count' => true,
+			]);
+		});
 
 		if ($messages > 1) {
 			// if this entity is attached to more than 1 message,

@@ -32,4 +32,4 @@ $list_options = (array) elgg_extract('list_options', $vars, []);
 
 echo elgg_view_entity_list($attachments, array_merge($options, $list_options));
 
-elgg_import_esm('js/output/attachments');
+elgg_import_esm('output/attachments');
