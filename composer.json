@@ -39,7 +39,7 @@
       "lib/functions.php"
     ],
     "psr-4": {
-      "hypeJunction\\\\Attachments\\\\": "classes/hypeJunction/Attachments/"
+      "hypeJunction\\Attachments\\": "classes/hypeJunction/Attachments/"
     }
   }
 }
